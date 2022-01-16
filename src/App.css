@@ -277,12 +277,14 @@ textarea {
   /* width: 15%; */
   text-align: center;
   width: 7.5%;
+  margin-bottom: 20px;
 }
 
 .replies {
   /* border: 1px solid red; */
   width: 85%;
   /* height: 100px; */
+  font-size: 14px;
 }
 
 .reply-top {

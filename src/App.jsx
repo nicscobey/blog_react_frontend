@@ -6,6 +6,7 @@ import Footer from './components/footer';
 import {Switch, Route} from 'react-router-dom'
 import Home from './pages/home';
 import Blog from './pages/blog';
+import Write from './pages/write';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,6 +20,9 @@ function App() {
         </Route>
         <Route path="/blog">
           <Blog />
+        </Route>
+        <Route path="/new">
+          <Write />
         </Route>
       </Switch>
       <Footer />

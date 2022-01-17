@@ -26,7 +26,7 @@ const TextArea = () => {
 
     return (
         
-        <TextareaAutosize placeholder="Click here to type a comment..."/>
+        <TextareaAutosize placeholder="Click here to type..."/>
 
     )
 

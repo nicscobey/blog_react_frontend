@@ -1,5 +1,6 @@
 import BlogCardSmall from "../components/blogCardSmall"
 import AllArticles from "../components/allArticles"
+import NewArticleButton from "../components/newArticleButton"
 
 const Home = () => {
     return (
@@ -7,7 +8,8 @@ const Home = () => {
             <div className="banner">Greetings</div>
             <h3 className="flex-center no-margin add-padding" id="top-posts">Top Posts</h3>
             <BlogCardSmall />
-            <AllArticles />
+            <AllArticles header={"All Articles"}/>
+            <NewArticleButton />
         </div>
     )
 }

@@ -1,4 +1,6 @@
 import Comments from "../components/comments" 
+import ScrollToTop from "../components/ScrollToTop"
+import NewArticleButton from "../components/newArticleButton"
 
 const Blog = () => {
     
@@ -6,6 +8,8 @@ const Blog = () => {
 
     return (
         <div>
+            <ScrollToTop />
+            <NewArticleButton />
             <div className="banner-two"></div>
             <div className="blog-content">
                 <h1 className="flex-center">Article Title</h1>

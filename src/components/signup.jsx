@@ -85,7 +85,7 @@ export default function Signup({open, setOpen, handleClose}) {
             }}/>
           </form>
           <div className="flex-center">
-            <div className="blue-btn horizontal-margin">SignUp</div>
+            <div className="blue-btn horizontal-margin">Sign Up</div>
             <div className="empty-btn horizontal-margin" onClick={handleClose}>Cancel</div>
         </div>
         </Box>

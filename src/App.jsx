@@ -7,25 +7,34 @@ import {Switch, Route} from 'react-router-dom'
 import Home from './pages/home';
 import Blog from './pages/blog';
 import Write from './pages/write';
+import Account from './pages/account';
+import { ThemeProvider } from '@mui/system';
+import ColorTheme from './components/ColorTheme';
+
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <div className="App">
-      <Header />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/blog">
-          <Blog />
-        </Route>
-        <Route path="/new">
-          <Write />
-        </Route>
-      </Switch>
-      <Footer />
+      <ThemeProvider theme={ColorTheme}>
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/blog">
+            <Blog />
+          </Route>
+          <Route path="/new">
+            <Write />
+          </Route>
+          <Route exact path="/my">
+            <Account />
+          </Route>
+        </Switch>
+        <Footer />
+      </ThemeProvider> 
     </div>
   )
 }

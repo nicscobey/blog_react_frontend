@@ -1,9 +1,9 @@
 import BlogCardLarge from "./blogCardLarge"
 
-const AllArticles = () => {
+const AllArticles = ({header}) => {
     return (
         <div className="gray-bg all-cards" id="all-articles">
-            <h3 className="flex-center no-margin add-padding">All Posts</h3>
+            <h3 className="flex-center no-margin add-padding">{header}</h3>
             <div className="flex-center flex-wrap">
                 <BlogCardLarge />
                 <BlogCardLarge />

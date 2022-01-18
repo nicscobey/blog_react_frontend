@@ -2,12 +2,15 @@ import { TextField } from "@mui/material"
 import SelectTheme from "../components/selectTheme"
 import TextArea from "../components/textarea"
 import TextareaAutosize from "react-textarea-autosize"
+import ScrollToTop from "../components/ScrollToTop"
 
 const Write = () => {
     return (
         <div>
             {/* <h1>Write</h1> */}
             {/* banner */}
+            <ScrollToTop />
+            <div className="banner-two"></div>
             <form className="flex-column blog-content">
                 <TextField placeholder="Title" className="margin-ten new-blog-entry" />
                 <TextField placeholder="Subtitle" className="margin-ten new-blog-entry"/>
@@ -19,6 +22,7 @@ const Write = () => {
                 <div className="flex-center">
                     <div className="blue-btn horizontal-margin">Publish</div>
                     <div className="empty-btn horizontal-margin">Save Draft</div>
+                    <div className="empty-btn horizontal-margin">Cancel Draft</div>
                 </div>
             </form>
             <br />

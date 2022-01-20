@@ -7,6 +7,7 @@ import { TextField } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
+import { useRef } from 'react';
 
 const style = {
   position: 'absolute',
@@ -20,10 +21,12 @@ const style = {
   p: 4,
 };
 
-export default function Login({open, setOpen, handleClose}) {
+export default function Login({open, setOpen, handleClose, username, password, login, user, handleUser}) {
 //   const [open, setOpen] = React.useState(false);
 //   const handleOpen = () => setOpen(true);
 //   const handleClose = () => setOpen(false);
+
+
 
   return (
     <div>
@@ -40,14 +43,14 @@ export default function Login({open, setOpen, handleClose}) {
             Log In
           </Typography>
           <form className="flex-column"> 
-              <TextField className="full-width margin-ten white-bg" size="small" placeholder="Username" InputProps={{
+              <TextField value={user.username} name="username" onChange={handleUser}className="full-width margin-ten white-bg" size="small" placeholder="Username" InputProps={{
           startAdornment: (
             <InputAdornment position="start">
               <AccountCircle />
             </InputAdornment>
           ),
         }}/>
-              <TextField className="full-width margin-ten white-bg" size="small" placeholder="Password" type="password" InputProps={{
+              <TextField value={user.password} onChange={handleUser} name="password" className="full-width margin-ten white-bg" size="small" placeholder="Password" type="password" InputProps={{
           startAdornment: (
             <InputAdornment position="start">
               <LockIcon />
@@ -56,7 +59,7 @@ export default function Login({open, setOpen, handleClose}) {
         }}/>
           </form>
           <div className="flex-center">
-            <div className="blue-btn horizontal-margin">Log In</div>
+            <div className="blue-btn horizontal-margin" onClick={login}>Log In</div>
             <div className="empty-btn horizontal-margin" onClick={handleClose}>Cancel</div>
           </div>
         </Box>

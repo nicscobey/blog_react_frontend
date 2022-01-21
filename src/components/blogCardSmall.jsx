@@ -21,7 +21,11 @@ const BlogCardSmall = ({posts, target}) => {
 
     const getLatestPosts = () => {
         const latestPosts = []
-        for (let i = 0; i < 3; i++) {
+        // console.log(posts)
+        // console.log(posts.length)
+
+        for (let i = 0; i < 3 && i < posts.length ; i++) {
+            // console.log(i)
             latestPosts.push(posts[i])
             // console.log(latestPosts)
         }

@@ -8,6 +8,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
+import { useState } from 'react';
 
 const style = {
   position: 'absolute',
@@ -21,10 +22,31 @@ const style = {
   p: 4,
 };
 
-export default function Signup({open, setOpen, handleClose}) {
+export default function Signup({open, setOpen, handleClose, newUser}) {
 //   const [open, setOpen] = React.useState(false);
 //   const handleOpen = () => setOpen(true);
 //   const handleClose = () => setOpen(false);
+
+  const [user, setUser] = useState({
+    email: "",
+    username: "",
+    first_name: "",
+    last_name: "",
+    password: "",
+    confirm_password: ""
+  })
+
+  const handleSignup = () => {
+    handleClose()
+    newUser({email: user.email, username: user.username, first_name: user.first_name, last_name: user.last_name, password: user.password})
+  }
+
+  const handleChange = (event) => {
+    const myUser = {...user}
+    myUser[event.target.name] = event.target.value
+    setUser(myUser)
+    console.log(myUser)
+}
 
   return (
     <div>
@@ -41,42 +63,42 @@ export default function Signup({open, setOpen, handleClose}) {
             Create an Account
           </Typography>
           <form className="flex-column"> 
-            <TextField className="full-width margin-ten white-bg" size="small" placeholder="Email" InputProps={{
+            <TextField value={user.email} name="email" onChange={handleChange} className="full-width margin-ten white-bg" size="small" placeholder="Email" InputProps={{
             startAdornment: (
                 <InputAdornment position="start">
                     <EmailIcon />
                 </InputAdornment>
             ),
             }}/>
-            <TextField className="full-width margin-ten white-bg" size="small" placeholder="Username" InputProps={{
+            <TextField value={user.username} name="username" onChange={handleChange} className="full-width margin-ten white-bg" size="small" placeholder="Username" InputProps={{
             startAdornment: (
                 <InputAdornment position="start">
                     <AccountCircle />
                 </InputAdornment>
             ),
             }}/>
-            <TextField className="full-width margin-ten white-bg" size="small" placeholder="First Name" InputProps={{
+            <TextField value={user.first_name} name="first_name" onChange={handleChange} className="full-width margin-ten white-bg" size="small" placeholder="First Name" InputProps={{
             startAdornment: (
                 <InputAdornment position="start">
                     <AccountCircle />
                 </InputAdornment>
             ),
             }}/>
-            <TextField className="full-width margin-ten white-bg" size="small" placeholder="Last Name" InputProps={{
+            <TextField value={user.last_name} name="last_name" onChange={handleChange} className="full-width margin-ten white-bg" size="small" placeholder="Last Name" InputProps={{
             startAdornment: (
                 <InputAdornment position="start">
                     <AccountCircle />
                 </InputAdornment>
             ),
             }}/>
-            <TextField className="full-width margin-ten white-bg" size="small" placeholder="Password" type="password'" InputProps={{
+            <TextField value={user.password} name="password" onChange={handleChange} className="full-width margin-ten white-bg" size="small" placeholder="Password" type="password'" InputProps={{
             startAdornment: (
                 <InputAdornment position="start">
                     <LockIcon />
                 </InputAdornment>
             ),
             }}/>
-            <TextField className="full-width margin-ten white-bg" size="small" type="password" placeholder="Confirm Password" InputProps={{
+            <TextField value={user.confirm_password} name="confirm_password" onChange={handleChange} className="full-width margin-ten white-bg" size="small" type="password" placeholder="Confirm Password" InputProps={{
             startAdornment: (
                 <InputAdornment position="start">
                     <LockIcon />
@@ -85,7 +107,7 @@ export default function Signup({open, setOpen, handleClose}) {
             }}/>
           </form>
           <div className="flex-center">
-            <div className="blue-btn horizontal-margin">Sign Up</div>
+            <div className="blue-btn horizontal-margin" onClick={handleSignup}>Sign Up</div>
             <div className="empty-btn horizontal-margin" onClick={handleClose}>Cancel</div>
         </div>
         </Box>

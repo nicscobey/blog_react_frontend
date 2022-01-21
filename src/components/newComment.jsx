@@ -7,15 +7,20 @@ const useStyles = makeStyles(() => ({
     },
   }));
 
-const NewComment = () => {
+const NewComment = ({setComment}) => {
+
+    const handleSetComment = () => {
+        setComment(false)
+    }
+    
     return (
         <div className="new-comment">
             <div className="comment-header">Add a Comment</div>
             <form className="new-comment-bottom">
                 <TextArea />
                 <div className="flex-center">
-                    <div className="blue-btn horizontal-margin">Add Comment</div>
-                    <div className="empty-btn horizontal-margin">Cancel</div>
+                    <div className="blue-btn horizontal-margin">Save Comment</div>
+                    <div className="empty-btn horizontal-margin" onClick={handleSetComment}>Cancel</div>
                 </div>
             </form>
         </div>

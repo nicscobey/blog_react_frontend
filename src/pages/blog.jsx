@@ -3,7 +3,7 @@ import ScrollToTop from "../components/ScrollToTop"
 import NewArticleButton from "../components/newArticleButton"
 import { useParams } from "react-router"
 
-const Blog = ({posts}) => {
+const Blog = ({posts, comments, getComments, editComment, deleteComment, newComment}) => {
     console.log(posts)
     
     const {id} = useParams()
@@ -34,11 +34,8 @@ const Blog = ({posts}) => {
                 </div>
                 <br />
                 <br />
-                <div className="flex-center">
-                    <div className="yellow-btn inline-block">Show Comments</div>
-                </div>
-                <br />
-                <Comments />
+                
+                <Comments comments={comments} getComments={getComments} editComment={editComment} deleteComment={deleteComment} newComment={newComment} />
             </div>
         </div>
     )

@@ -2,18 +2,19 @@ import Login from "./login"
 import { useState, useRef } from "react";
 import Signup from "./signup";
 
-const Header = ({getToken, token, logout}) => {
+const Header = ({getToken, token, logout, newUser, open, setOpen, handleOpen, handleClose, openSignup, setOpenSignup, handleOpenSignup, handleCloseSignup}) => {
 
     const localToken = JSON.parse(localStorage.getItem('token'))
     // console.log(localToken)
     // console.log(token)
+    // console.log(newUser)
 
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-    const [openSignup, setOpenSignup] = useState(false);
-    const handleOpenSignup = () => setOpenSignup(true);
-    const handleCloseSignup = () => setOpenSignup(false);
+    // const [open, setOpen] = useState(false);
+    // const handleOpen = () => setOpen(true);
+    // const handleClose = () => setOpen(false);
+    // const [openSignup, setOpenSignup] = useState(false);
+    // const handleOpenSignup = () => setOpenSignup(true);
+    // const handleCloseSignup = () => setOpenSignup(false);
 
     const [user, setUser] = useState({username: "", password: ""})
 
@@ -28,11 +29,14 @@ const Header = ({getToken, token, logout}) => {
         // const pw = password.current.value 
 
         // console.log(un, pw)
+        console.log(user.username, user.password)
         getToken(user.username, user.password)
         handleClose()
         // console.log(user)
         setUser({username: "", password: ""})
     }
+
+   
 
     const notLoggedIn = () => {
         return (
@@ -73,7 +77,7 @@ const Header = ({getToken, token, logout}) => {
                 {token.access || localToken ? loggedIn() : notLoggedIn()}
             </div>
             <Login login={handleLogin} handleUser={handleUser} user={user} open={open} handleClose={handleClose}/>
-            <Signup open={openSignup} handleClose={handleCloseSignup} />
+            <Signup open={openSignup} handleClose={handleCloseSignup} newUser={newUser} />
         </div>
     )
 }

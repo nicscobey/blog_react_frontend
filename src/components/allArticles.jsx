@@ -1,6 +1,6 @@
 import BlogCardLarge from "./blogCardLarge"
 
-const AllArticles = ({header, posts, edit = false}) => {
+const AllArticles = ({header, posts, edit = false, handleOpen, deletePost}) => {
 
     // console.log(posts)
 
@@ -8,7 +8,7 @@ const AllArticles = ({header, posts, edit = false}) => {
 
         // console.log(posts)
         const allPosts = posts.map((post) => {
-            return <BlogCardLarge edit={edit} post={post}/>
+            return <BlogCardLarge deletePost={deletePost} handleOpen={handleOpen} edit={edit} post={post}/>
         })
 
         return allPosts

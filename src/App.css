@@ -54,6 +54,7 @@ a:visited {
 
 .blue-btn {
   background: linear-gradient(90deg, #42a8aa 0%, #0081a3 100%);
+  /* background: #012d4a; */
   padding: 7px 15px;
   border-radius: 100px;
   color: white;
@@ -62,6 +63,11 @@ a:visited {
 .blue-btn:hover {
   background: linear-gradient(90deg, #399697 0%, #007291 100%);
   cursor: pointer;
+}
+
+.no-padding {
+  /* padding: 7px; */
+  display: inline-block;
 }
 
 .empty-btn {
@@ -244,7 +250,7 @@ a.color-black:visited {
 }
 
 .theme-border {
-  border: 2px solid blue;
+  border: 2px solid #0081a3;
   width: auto;
   display: inline-block;
   padding: 5px;

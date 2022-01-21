@@ -33,7 +33,8 @@ const Edit = ({editPost, posts, account}) => {
         subtitle: myPost.subtitle,
         content: myPost.content,
         theme: myPost.theme,
-        author: user.id
+        author: user.id,
+        published: true
     })
     // const [post, setPost] = useState({
     //     title: "",

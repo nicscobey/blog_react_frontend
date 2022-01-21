@@ -218,7 +218,7 @@ const getComments = async () => {
 
 // NEW COMMENT
 const newComment = async (comment) => {
-  const response = await fetch(url + 'blog/', {
+  const response = await fetch(url + 'comment/', {
     method: "post",
     headers: {
       Authorization: `Bearer ${token.access}`,
@@ -227,10 +227,12 @@ const newComment = async (comment) => {
     body: JSON.stringify(comment)
   })
 
+  console.log(response)
+
   getComments()
 }
 
-//EDIT POST
+//EDIT COMMENT
 const editComment = async (comment, comment_id) => {
   const response = await fetch(url + 'comment/' + comment_id + '/', {
     method: "put",
@@ -244,7 +246,7 @@ const editComment = async (comment, comment_id) => {
   getComments()
 }
 
-//DELETE POST 
+//DELETE COMMENT
 const deleteComment = async (comment_id) => {
 
   const response = await fetch(url + 'comment/' + comment_id + '/', {
@@ -259,6 +261,60 @@ const deleteComment = async (comment_id) => {
 
 
 
+// // GET REPLIES
+// const [replies, setReplies] = useState(null)
+// const getReplies = async () => {
+//   const response = await fetch(url + 'reply/', {
+//     method: "get",
+//   })
+//   const data = await response.json()
+//   console.log(data)
+//   setReplies(data)
+// }
+
+// // NEW REPLY
+// const newReply = async (reply) => {
+//   const response = await fetch(url + 'reply/', {
+//     method: "post",
+//     headers: {
+//       Authorization: `Bearer ${token.access}`,
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify(reply)
+//   })
+
+//   console.log(response)
+
+//   getReplies()
+// }
+
+// //EDIT REPLY
+// const editReply = async (reply, reply_id) => {
+//   const response = await fetch(url + 'reply/' + reply_id + '/', {
+//     method: "put",
+//     headers: {
+//       Authorization: `Bearer ${localToken.access}`,
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify(reply)
+//   })
+
+//   getReplies()
+// }
+
+// //DELETE REPLY
+// const deleteReply = async (reply_id) => {
+
+//   const response = await fetch(url + 'reply/' + reply_id + '/', {
+//     method: "delete",
+//     headers: {
+//       Authorization: `Bearer ${localToken.access}`,
+//     },
+//   })
+
+//   getReplies()
+// }
+
 
 
 
@@ -272,7 +328,7 @@ const deleteComment = async (comment_id) => {
             <Home posts={publishedPosts} token={token} handleOpen={handleOpen} handleOpenSignup={handleOpenSignup} />
           </Route>
           <Route path="/blog/:id" render={(rp) => (
-            <Blog {...rp} posts={publishedPosts} getPosts={getPosts} comments={comments} getComments={getComments} editComment={editComment} deleteComment={deleteComment} newComment={newComment} />
+            <Blog token={token} {...rp} url={url} account={account} posts={publishedPosts} getPosts={getPosts} comments={comments} getComments={getComments} editComment={editComment} deleteComment={deleteComment} newComment={newComment} />
           )} />
           {/* <Route path="/blog">
             <Blog />

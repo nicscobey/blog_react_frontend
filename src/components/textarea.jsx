@@ -19,17 +19,16 @@
 // export default TextArea
 import TextareaAutosize from 'react-textarea-autosize';
 
-const TextArea = () => {
+const TextArea = ({comment, setWriteComment}) => {
 
-   
 
+    const handleChange = (event) => {
+        setWriteComment(event.target.value)
+    }
 
     return (
-        
-        <TextareaAutosize placeholder="Click here to type..."/>
-
+        <TextareaAutosize name="comment" value={comment} onChange={handleChange} placeholder="Click here to type..."/>
     )
-
 }
 
 export default TextArea

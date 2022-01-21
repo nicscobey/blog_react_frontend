@@ -3,7 +3,8 @@ import ScrollToTop from "../components/ScrollToTop"
 import NewArticleButton from "../components/newArticleButton"
 import { useParams } from "react-router"
 
-const Blog = ({posts, comments, getComments, editComment, deleteComment, newComment}) => {
+
+const Blog = ({posts, comments, getComments, editComment, deleteComment, newComment, url, account, token}) => {
     console.log(posts)
     
     const {id} = useParams()
@@ -17,7 +18,9 @@ const Blog = ({posts, comments, getComments, editComment, deleteComment, newComm
         <div>
             <ScrollToTop />
             <NewArticleButton />
-            <div className="banner"></div>
+            <div className="banner">
+                <img className="banner-image" src="https://i1.sndcdn.com/artworks-000146136976-l13xgp-t500x500.jpg" alt="banner" />
+            </div>
             <div className="blog-content">
                 <h1 className="flex-center">{post.title}</h1>
                 <h3 className="flex-center">{post.subtitle}</h3>
@@ -35,7 +38,7 @@ const Blog = ({posts, comments, getComments, editComment, deleteComment, newComm
                 <br />
                 <br />
                 
-                <Comments comments={comments} getComments={getComments} editComment={editComment} deleteComment={deleteComment} newComment={newComment} />
+                <Comments token={token} account={account} url={url} post_id={post_id} comments={comments} getComments={getComments} editComment={editComment} deleteComment={deleteComment} newComment={newComment} />
             </div>
         </div>
     )

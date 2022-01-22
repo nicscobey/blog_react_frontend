@@ -9,7 +9,7 @@ import { Button } from '@mui/material';
 import NewComment from './newComment';
 import Replies from './replies';
 
-const Comment = ({comment, account, url, token}) => {
+const Comment = ({comment, account, url, token, deleteComment}) => {
 
     const [showNewReply, setShowNewReply] = useState(false)
 
@@ -17,36 +17,61 @@ const Comment = ({comment, account, url, token}) => {
         setShowNewReply(true)
     }
 
+    console.log(comment)
+
+    const handleDelete = () => {
+        console.log('delete')
+        deleteComment(comment.id)
+    }
+
+    const convertToDate = (ms) => {
+        const dateObj = new Date(ms)
+    
+    let hour
+    
+    if (dateObj.getHours() === 0) {
+        hour = 12;
+    }
+    else if (dateObj.getHours() >= 12) {
+        hour = dateObj.getHours() - 12
+    }
+    else {
+        hour = dateObj.getHours() + 1
+    }
+    
+    return `${dateObj.getMonth()+1}/${dateObj.getDate()}/${dateObj.getFullYear()} at ${hour}:${dateObj.getMinutes()>9 ? dateObj.getMinutes() : "0" + dateObj.getMinutes()} ${dateObj.getHours() >= 12 ? "pm" : "am"}`
+    }
+
     return (
         <>
             <div className="comment">
                 <div className="comment-top">
-                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" alt="reply-author" className="comment-author-img" />
+                    <img src="https://www.kindpng.com/picc/m/269-2697881_computer-icons-user-clip-art-transparent-png-icon.png" alt="reply-author" className="comment-author-img" />
                     <div className="comment-right">
                         <div className="comment-published">
-                            <b><p className="no-margin">Username</p></b>
-                            <p className="no-margin">Month ##, ####</p>
+                            <b><p className="no-margin">{comment.author.username}</p></b>
+                            <p className="no-margin">{convertToDate(comment.created_at)}</p>
                         </div>
                         <p>{comment.content}</p>
                     </div>
                 </div>
                 <div className="flex-center">
                     <div className="comment-button">
-                        <IconButton><ThumbUpIcon /></IconButton>#
+                        <IconButton><ThumbUpIcon /></IconButton>{comment.likes}
                     </div>
                     <div className="comment-button">
-                        <IconButton><ThumbDownIcon /></IconButton>#
+                        <IconButton><ThumbDownIcon /></IconButton>{comment.dislikes}
                     </div>
                     <div className="comment-button">
                         <IconButton onClick={handleShowNewReply}><ChatBubbleIcon /></IconButton>Reply
                     </div>
-                    { account && account.id === comment.author ?
+                    { account && account.id === comment.author.id ?
                             <>
                     <div className="comment-button">
                         <IconButton><EditIcon /></IconButton>Edit
                     </div>
                     <div className="comment-button">
-                        <IconButton><DeleteIcon /></IconButton>Delete
+                        <IconButton><DeleteIcon onClick={handleDelete} /></IconButton>Delete
                     </div>
                     </> 
                     : null }

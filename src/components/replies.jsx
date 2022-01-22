@@ -69,6 +69,24 @@ const deleteReply = async (reply_id) => {
 }
 
 
+const convertToDate = (ms) => {
+    const dateObj = new Date(ms)
+
+let hour
+
+if (dateObj.getHours() === 0) {
+    hour = 12;
+}
+else if (dateObj.getHours() >= 12) {
+    hour = dateObj.getHours() - 12
+}
+else {
+    hour = dateObj.getHours() + 1
+}
+
+return `${dateObj.getMonth()+1}/${dateObj.getDate()}/${dateObj.getFullYear()} at ${hour}:${dateObj.getMinutes()>9 ? dateObj.getMinutes() : "0" + dateObj.getMinutes()} ${dateObj.getHours() >= 12 ? "pm" : "am"}`
+}
+
 useEffect(() => {getReplies()}, [])
 
     let myReplies = replies?.filter(reply => reply.comment === comment_id)
@@ -85,29 +103,29 @@ useEffect(() => {getReplies()}, [])
 
 
             return (
-                <div className="reply">
+                <div className="reply" key={`reply-${reply.id}`}>
                 {/* <div className="comment-top"> */}
                     <div className="reply-top">
-                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" alt="reply-author" className="reply-author-img" />
+                        <img src="https://www.kindpng.com/picc/m/269-2697881_computer-icons-user-clip-art-transparent-png-icon.png" alt="reply-author" className="reply-author-img" />
                         <div className="comment-right">
                             <div className="comment-published">
-                                <b><p className="no-margin">Username</p></b>
-                                <p className="no-margin">Month ##, ####</p>
+                                <b><p className="no-margin">{reply.author.username}</p></b>
+                                <p className="no-margin">{convertToDate(reply.created_at)}</p>
                             </div>
                             <p>{reply.content}</p>
                         </div>
                         </div>
                         <div className="flex-center">
                         <div className="reply-button">
-                            <IconButton  size="small"><ThumbUpIcon /></IconButton>#
+                            <IconButton  size="small"><ThumbUpIcon /></IconButton>{reply.likes}
                         </div>
                         <div className="reply-button">
-                            <IconButton  size="small"><ThumbDownIcon /></IconButton>#
+                            <IconButton  size="small"><ThumbDownIcon /></IconButton>{reply.dislikes}
                         </div>
                         <div className="reply-button">
                             <IconButton onClick={handleShowNewReply} size="small"><ChatBubbleIcon /></IconButton>Reply
                         </div>
-                        { account && account.id === reply.author ?
+                        { account && account.id === reply.author.id ?
                             <>
                                 <div className="reply-button">
                                     <IconButton  size="small"><EditIcon /></IconButton>Edit
@@ -133,7 +151,7 @@ useEffect(() => {getReplies()}, [])
         return (
             <div className="reply">
                 <div className="reply-top">
-                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" alt="reply-author" className="reply-author-img" />
+                    <img src="https://www.kindpng.com/picc/m/269-2697881_computer-icons-user-clip-art-transparent-png-icon.png" alt="reply-author" className="reply-author-img" />
                     <div className="comment-right">
                         <div className="comment-published">
                             <b><p className="no-margin">Username</p></b>

@@ -175,6 +175,10 @@ a.color-black:visited {
   overflow: hidden;
 }
 
+.blank-banner {
+  height: 106px;
+}
+
 .banner-image {
   /* overflow: hidden; */
   /* border: 1px solid red; */
@@ -187,7 +191,7 @@ a.color-black:visited {
   background: linear-gradient(270deg, #fff500 0%, #ffcc15 100%);
 }
 
-#new-post-banner {
+.new-post-banner {
   /* background-image: url("https://images.unsplash.com/photo-1517842645767-c639042777db?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"); */
   background-color: #c4c4c4;
   height: 400px;
@@ -200,13 +204,13 @@ a.color-black:visited {
   font-size: 50px;
 }
 
-#new-post-banner:hover {
+.new-post-banner:hover {
   cursor: pointer;
 }
 
 #banner-icon {
   position: absolute;
-  bottom: 75px;
+  bottom: -35px;
   right: 15px;
 }
 
@@ -259,11 +263,44 @@ a.color-black:visited {
 }
 
 .theme-border {
-  border: 2px solid #0081a3;
+  /* border: 2px solid #0081a3; */
   width: auto;
   display: inline-block;
   padding: 5px;
   font-size: 14px;
+  color: white;
+}
+
+.Css-border {
+  border: 2px solid #0081a3;
+  background-color: #0081a3;
+}
+
+.Html-border {
+  border: 2px solid #fff500;
+  background-color: #fff500;
+  color: black;
+}
+
+.JavaScript-border {
+  border: 2px solid #42a8aa;
+  background-color: #42a8aa;
+}
+
+.Python-border {
+  border: 2px solid #012d4a;
+  background-color: #012d4a;
+}
+
+.React-border {
+  border: 2px solid #1a7d83;
+  background-color: #1a7d83;
+}
+
+.Ruby-border {
+  border: 2px solid #ffcc15;
+  background-color: #ffcc15;
+  color: black;
 }
 
 .blog-card-large {

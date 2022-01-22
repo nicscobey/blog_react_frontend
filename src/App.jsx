@@ -13,8 +13,8 @@ import ColorTheme from './components/ColorTheme';
 import Edit from './pages/edit';
 
 function App() {
-  const url = 'https://blog-backend-django-ns.herokuapp.com/'
-  // const url = 'http://127.0.0.1:8000/'
+  // const url = 'https://blog-backend-django-ns.herokuapp.com/'
+  const url = 'http://127.0.0.1:8000/'
   const [count, setCount] = useState(0)
   const history = useHistory()
   
@@ -45,7 +45,7 @@ function App() {
       },
       body: JSON.stringify({username: username, password: password})
     })
-    
+
     const data = await response.json()
     // console.log(data)
     if (data.detail) {
@@ -60,6 +60,17 @@ function App() {
       localStorage.setItem("token", JSON.stringify(data))
     }
   }
+
+  const refreshToken = async (token) => {
+    const response = await fetch(url + 'api/token/refresh', {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(token)
+    })
+  }
+  
 
   const logout = () => {
     localStorage.removeItem("token")
@@ -256,6 +267,7 @@ const deleteComment = async (comment_id) => {
     },
   })
 
+  console.log(response)
   getComments()
 }
 
@@ -334,7 +346,7 @@ const deleteComment = async (comment_id) => {
             <Blog />
           </Route> */}
           <Route path="/new">
-            <Write token={token} newPost={newPost} title="" subtitle="" theme="" content="" account={account} />
+            <Write token={token} newPost={newPost} title="" subtitle="" theme="" content="" banner="" account={account} />
           </Route>
           {/* <Route path="/edit">
             <Edit editPost={editPost} title="edit" subtitle="edit" theme="CSS" content="edit" account={account} />

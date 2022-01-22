@@ -8,12 +8,17 @@ import $ from 'jquery';
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from "@mui/material"
 import { useHistory } from "react-router"
+import BannerModal from "../components/bannerModal"
 
 // const Write = ({newPost, account}) => {
-const Write = ({newPost, account, title, subtitle, content, theme, token}) => {
+const Write = ({newPost, account, title, subtitle, content, theme, banner, token}) => {
     const history = useHistory()
     const localToken = JSON.parse(localStorage.getItem('token'))
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
+    console.log(account)
 
     const [bannerHover, setBannerHover] = useState(false)
     const [post, setPost] = useState({
@@ -22,7 +27,8 @@ const Write = ({newPost, account, title, subtitle, content, theme, token}) => {
         content: content,
         theme: theme,
         author: null,
-        published: true
+        published: true,
+        banner: banner
     })
     // const [post, setPost] = useState({
     //     title: "",
@@ -34,7 +40,12 @@ const Write = ({newPost, account, title, subtitle, content, theme, token}) => {
 
     const showBannerIcon = () => {setBannerHover(true)}
     const hideBannerIcon = () => {setBannerHover(false)}
-    const uploadBanner = () => {console.log('hi')}
+    
+    const uploadBanner = () => {
+        console.log('hi')
+        handleOpen(true)
+    }
+
     const handleChange = (event) => {
         const newPost = {...post}
         newPost[event.target.name] = event.target.value
@@ -69,9 +80,24 @@ const Write = ({newPost, account, title, subtitle, content, theme, token}) => {
     return (
         <div>
             <ScrollToTop />
-            <div onClick={uploadBanner} onMouseEnter={showBannerIcon} onMouseLeave={hideBannerIcon} id="new-post-banner">Click here to select a cover image...{bannerHover ? <IconButton aria-label="delete" id="banner-icon">
+            <BannerModal post={post} setPost={setPost} open={open} handleClose={handleClose} handleChange={handleChange} />
+
+
+            {post.banner === "" ? <div onClick={uploadBanner} onMouseEnter={showBannerIcon} onMouseLeave={hideBannerIcon} className="new-post-banner">Click here to select a cover image...{bannerHover ? <IconButton aria-label="delete" id="banner-icon">
         <EditIcon />
-        </IconButton> : null}</div>
+        </IconButton> : null}</div> : 
+        
+        <div className="banner new-post-banner" onClick={uploadBanner} onMouseEnter={showBannerIcon} onMouseLeave={hideBannerIcon}>
+                <img className="banner-image" src={post.banner} alt="banner" />{bannerHover ? <IconButton aria-label="delete" id="banner-icon">
+        <EditIcon />
+        </IconButton> : null}
+            </div>
+
+        }
+            
+
+
+
             <form className="flex-column blog-content">
                 <TextareaAutosize onChange={handleChange} value={post.title} placeholder="Click here to add a title..." className="new-post new-post-title" name="title" />
                 <TextareaAutosize onChange={handleChange} value={post.subtitle}  name="subtitle" placeholder="Click here to add a subtitle..." className="new-post new-post-subtitle" />

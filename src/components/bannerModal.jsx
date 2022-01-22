@@ -7,7 +7,8 @@ import { TextField } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import ImageIcon from '@mui/icons-material/Image';
 
 const style = {
   position: 'absolute',
@@ -21,11 +22,37 @@ const style = {
   p: 4,
 };
 
-export default function Confirm({open, setOpen, handleClose, title, deletePost}) {
+export default function BannerModal({open, setOpen, handleClose, title, deletePost, post, setPost}) {
 //   const [open, setOpen] = React.useState(false);
 //   const handleOpen = () => setOpen(true);
 //   const handleClose = () => setOpen(false);
 
+  const [url, setUrl] = useState("")
+
+  const handleChange = (event) => {
+    // const newUrl = {...url}
+    // newUrl[event.target.name] = event.target.value
+    // newPost.author = account.id
+    // // setPost(newPost) 
+    // console.log(newPost)
+    console.log(url)
+    console.log(event.target.value)
+    setUrl(event.target.value)
+  }
+
+
+  const handleSave = () => {
+    const newPost = {...post}
+    newPost.banner = url
+    setPost(newPost)
+    handleClose()
+  }
+
+  const handleCancel = () => {
+    setUrl("")
+    // setPost(tempPost)
+    handleClose()
+  }
 
 
   return (
@@ -33,35 +60,27 @@ export default function Confirm({open, setOpen, handleClose, title, deletePost})
       {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={handleCancel}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
        
       >
         <Box sx={style} id="modal">
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Are you sure you wish to delete this post? This action cannot be undone.
+            Paste the url to an image you wish to use as the banner photo...
           </Typography>
-          <br />
-          {/* <form className="flex-column"> 
-              <TextField value={user.username} name="username" onChange={handleUser}className="full-width margin-ten white-bg" size="small" placeholder="Username" InputProps={{
+          <form className="flex-column"> 
+              <TextField value={url} name="banner" onChange={handleChange}className="full-width margin-ten white-bg" size="small" placeholder="http://www.example.com" InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <AccountCircle />
+              <ImageIcon />
             </InputAdornment>
           ),
         }}/>
-              <TextField value={user.password} onChange={handleUser} name="password" className="full-width margin-ten white-bg" size="small" placeholder="Password" type="password" InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <LockIcon />
-            </InputAdornment>
-          ),
-        }}/>
-          </form> */}
+          </form>
           <div className="flex-center">
-            <div className="blue-btn horizontal-margin" onClick={deletePost}>Delete</div>
-            <div className="empty-btn horizontal-margin" onClick={handleClose}>Cancel</div>
+            <div className="blue-btn horizontal-margin" onClick={handleSave}>Save</div>
+            <div className="empty-btn horizontal-margin" onClick={handleCancel}>Cancel</div>
           </div>
         </Box>
       </Modal>

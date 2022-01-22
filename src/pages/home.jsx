@@ -2,6 +2,7 @@ import BlogCardSmall from "../components/blogCardSmall"
 import AllArticles from "../components/allArticles"
 import NewArticleButton from "../components/newArticleButton"
 import { Link } from "react-router-dom"
+import LoadingIcon from "../components/loadingIcon"
 
 const Home = ({posts, token, handleOpen, handleOpenSignup}) => {
     const localToken = JSON.parse(localStorage.getItem('token'))
@@ -21,6 +22,7 @@ const Home = ({posts, token, handleOpen, handleOpenSignup}) => {
 
 
             <h3 className="flex-center no-margin add-padding" id="top-posts">Latest Posts</h3>
+            {/* <LoadingIcon /> */}
             <BlogCardSmall posts={posts} target="blog" />
             <AllArticles posts={posts} header={"All Articles"}/>
             <NewArticleButton />

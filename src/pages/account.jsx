@@ -30,6 +30,7 @@ const Account = ({token, posts, account, deletePost}) => {
     // console.log(posts)
     // console.log(token)
 
+
     const author_id = JSON.parse(localStorage.getItem("user")).id
     console.log(author_id)
     const myPosts = posts?.filter(post => 
@@ -37,7 +38,7 @@ const Account = ({token, posts, account, deletePost}) => {
         // console.log(post)
         // console.log(post.author)
         // console.log(post.author === author_id)
-        post.author === author_id
+        post.author.id === author_id
     )
 
     console.log(myPosts)

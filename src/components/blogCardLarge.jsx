@@ -10,6 +10,25 @@ const BlogCardLarge = ({post, edit = false, deletePost}) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+
+    const convertToDate = (ms) => {
+        const dateObj = new Date(ms)
+
+    let hour
+
+    if (dateObj.getHours() === 0) {
+        hour = 12;
+    }
+    else if (dateObj.getHours() >= 12) {
+        hour = dateObj.getHours() - 12
+    }
+    else {
+        hour = dateObj.getHours() + 1
+    }
+
+        return `${dateObj.getMonth()+1}/${dateObj.getDate()}/${dateObj.getFullYear()}`
+    }
+
     // console.log(edit)
     // console.log(handleOpen)
     // theme border will likely need to be written in JS to make the color dynamic based on theme
@@ -27,17 +46,23 @@ const BlogCardLarge = ({post, edit = false, deletePost}) => {
             deletePost(id)
         }
 
+
+
         return (
-                <div key={`large-card-${id}`}className="blog-card-large">
+                <div key={`large-card-${id}`} className="blog-card-large">
                     <Link to={`/blog/${id}`} className="color-black">
-                        <img className="card-image-large" src="https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt=""/>
+                        <img className="card-image-large" src={post.banner !== "" ? post.banner : "https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"} alt=""/>
                     </Link>
                     <div className="large-card-bottom">
-                        <Link to={`/blog/${id}`} className="color-black">
-                            <p className="theme-border large-card-text">{theme}</p>
+                        <Link to={`/blog/${id}`} className="color-black flex-column">
+                            {/* <p className={`large-card-text theme-border ${theme}-border`}>{theme}</p> */}
                             <b><p className="large-card-text">{title}</p></b>
                             {/* <p className="theme-border large-card-text">Theme</p> */}
-                            <p className="large-card-published">Firstname Lastname 	&#8226; ##/##/####</p>
+                            <p className="large-card-published">{post.author.first_name} {post.author.last_name} &#8226; {convertToDate(post.created_at)}</p>
+                            {/* <div className="flex-center"> */}
+                            <p className={`large-card-text theme-border ${theme}-border`}>{theme}</p>
+                            {/* </div> */}
+                            
                         </Link>
                         {edit ? 
                         <>

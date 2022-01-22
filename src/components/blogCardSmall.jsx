@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import LoadingIcon from "./loadingIcon"
 
 const BlogCardSmall = ({posts, target}) => {
 
@@ -39,10 +40,10 @@ const BlogCardSmall = ({posts, target}) => {
 
         const smallCards = getLatestPosts().map((post) => {
             return (
-                <div className="blog-card-small">
-                    <Link to={`/${target}/${post.id}`}><img className="card-image-small" src="https://images.unsplash.com/photo-1547394765-185e1e68f34e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt=""/></Link>
+                <div key={`small-card-${post.id}`} className="blog-card-small">
+                    <Link to={`/${target}/${post.id}`}><img className="card-image-small" src={post.banner !== "" ? post.banner : "https://images.unsplash.com/photo-1547394765-185e1e68f34e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"} alt=""/></Link>
                     <Link to={`/${target}/${post.id}`} className="color-black"><b><p className="small-card-text">{post.title}</p></b></Link>
-                    <p className="theme-border small-card-text">{post.theme}</p>
+                    <p className={`theme-border small-card-text ${post.theme}-border`}>{post.theme}</p>
                 </div>
             )
         })
@@ -62,7 +63,7 @@ const BlogCardSmall = ({posts, target}) => {
         <div className="flex-center">
             {/* <CreateCards />
             <CreateCards /> */}
-            {posts ? CreateCards() : null}
+            {posts ? CreateCards() : <LoadingIcon />}
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import Login from "./login"
 import { useState, useRef } from "react";
 import Signup from "./signup";
+import { Link } from "react-router-dom";
 
 const Header = ({getToken, token, logout, newUser, open, setOpen, handleOpen, handleClose, openSignup, setOpenSignup, handleOpenSignup, handleCloseSignup}) => {
 
@@ -59,8 +60,8 @@ const Header = ({getToken, token, logout, newUser, open, setOpen, handleOpen, ha
 
         return (
             <>
-                <a href="/new" className="nav-link">New Post</a>
-                <a href="/my" className="nav-link">My Account</a>
+                <Link to="/new"><h4 className="nav-link">New Post</h4></Link>
+                <Link to="/my"><h4 className="nav-link">My Account</h4></Link>
                 <h4 onClick={handleLogout} className="nav-link">Log Out</h4> 
             </>
         )
@@ -68,7 +69,7 @@ const Header = ({getToken, token, logout, newUser, open, setOpen, handleOpen, ha
 
     return (
         <div className="header">
-            <a href="/"><h2 className="flex-center no-weight no-margin">App Name</h2></a>
+            <Link to="/"><h2 className="flex-center no-weight no-margin">App Name</h2></Link>
             <div className="nav">
                 <a href="/#top-posts" className="nav-link">Top Posts</a>
                 <a href="/#all-articles" className="nav-link">All Posts</a>

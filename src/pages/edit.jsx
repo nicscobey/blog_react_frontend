@@ -9,6 +9,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from "@mui/material"
 import { useParams, useHistory } from "react-router"
 import { compose } from "@mui/system"
+import LoadingIcon from "../components/loadingIcon"
+import BannerModal from "../components/bannerModal"
 
 // const Write = ({newPost, account}) => {
 const Edit = ({editPost, posts, account}) => {
@@ -21,6 +23,7 @@ const Edit = ({editPost, posts, account}) => {
     const post_id = parseInt(id)
     // console.log(localStorage.user)
     const myPost = posts.find(post => post.id === post_id)
+    console.log(post_id)
     console.log(myPost)
     const {theme, subtitle, title, content} = myPost
 
@@ -28,13 +31,18 @@ const Edit = ({editPost, posts, account}) => {
     console.log(user)
 
     const [bannerHover, setBannerHover] = useState(false)
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     const [post, setPost] = useState({
         title: myPost.title,
         subtitle: myPost.subtitle,
         content: myPost.content,
         theme: myPost.theme,
         author: user.id,
-        published: true
+        published: true,
+        banner: myPost.banner
     })
     // const [post, setPost] = useState({
     //     title: "",
@@ -43,12 +51,13 @@ const Edit = ({editPost, posts, account}) => {
     //     theme: "",
     //     author: null
     // })
-    
-    
 
     const showBannerIcon = () => {setBannerHover(true)}
     const hideBannerIcon = () => {setBannerHover(false)}
-    const uploadBanner = () => {console.log('hi')}
+    const uploadBanner = () => {
+        console.log('hi')
+        handleOpen(true)
+    }
     const handleChange = (event) => {
         const newPost = {...post}
         newPost[event.target.name] = event.target.value
@@ -79,9 +88,26 @@ const Edit = ({editPost, posts, account}) => {
     return (
         <div>
             <ScrollToTop />
-            <div onClick={uploadBanner} onMouseEnter={showBannerIcon} onMouseLeave={hideBannerIcon} id="new-post-banner">Click here to select a cover image...{bannerHover ? <IconButton aria-label="delete" id="banner-icon">
+            {/* <div onClick={uploadBanner} onMouseEnter={showBannerIcon} onMouseLeave={hideBannerIcon} id="new-post-banner">Click here to select a cover image...{bannerHover ? <IconButton aria-label="delete" id="banner-icon">
         <EditIcon />
-        </IconButton> : null}</div>
+        </IconButton> : null}</div> */}
+
+            <BannerModal post={post} setPost={setPost} open={open} handleClose={handleClose} handleChange={handleChange} />
+            {post.banner === "" ? <div onClick={uploadBanner} onMouseEnter={showBannerIcon} onMouseLeave={hideBannerIcon} className="new-post-banner">Click here to select a cover image...{bannerHover ? <IconButton aria-label="delete" id="banner-icon">
+        <EditIcon />
+        </IconButton> : null}</div> : 
+        
+        <div className="banner new-post-banner" onClick={uploadBanner} onMouseEnter={showBannerIcon} onMouseLeave={hideBannerIcon}>
+                <img className="banner-image" src={post.banner} alt="banner" />{bannerHover ? <IconButton aria-label="delete" id="banner-icon">
+        <EditIcon />
+        </IconButton> : null}
+            </div>
+
+        }
+
+
+
+
             <form className="flex-column blog-content">
                 <TextareaAutosize onChange={handleChange} value={post.title} placeholder="Click here to add a title..." className="new-post new-post-title" name="title" />
                 <TextareaAutosize onChange={handleChange} value={post.subtitle}  name="subtitle" placeholder="Click here to add a subtitle..." className="new-post new-post-subtitle" />
@@ -90,7 +116,7 @@ const Edit = ({editPost, posts, account}) => {
                 <TextareaAutosize onChange={handleChange} value={post.content}  placeholder="Click here to add the content of your post..." className="new-post-text" name="content" />
                 <SelectTheme post={post} handleChange={handleChange} className="margin-ten"/>
                 <div className="flex-center">
-                    <div className="blue-btn horizontal-margin" onClick={handlePublish}>Publish</div>
+                    <div className="blue-btn horizontal-margin" onClick={handlePublish}>Publish Changes</div>
                     {/* <div className="empty-btn horizontal-margin">Save Draft</div> */}
                     <div className="empty-btn horizontal-margin">Cancel Changes</div>
                 </div>
@@ -103,7 +129,18 @@ const Edit = ({editPost, posts, account}) => {
     }
 
     const noData = () => {
-        return (<h1>no data!</h1>)
+        return (
+            <div>
+                <div>
+                    <div className="blank-banner"></div>
+                    <ScrollToTop />
+                    <LoadingIcon />
+                    <br />
+                    <br /> 
+                    <br />
+                </div>
+            </div>
+        )
     }
 
     return (

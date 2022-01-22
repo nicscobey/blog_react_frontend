@@ -87,7 +87,7 @@ const Comments = ({comments, getComments, editComment, deleteComment, newComment
         // )
 
         return (
-            <Comment token={token} comment={comment} account={account} url={url} />
+            <Comment key={`comment-${comment.id}`} deleteComment={deleteComment} token={token} comment={comment} account={account} url={url} />
         )
     
     })

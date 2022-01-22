@@ -1,4 +1,5 @@
 import BlogCardLarge from "./blogCardLarge"
+import LoadingIcon from "./loadingIcon"
 
 const AllArticles = ({header, posts, edit = false, handleOpen, deletePost}) => {
 
@@ -8,7 +9,7 @@ const AllArticles = ({header, posts, edit = false, handleOpen, deletePost}) => {
 
         // console.log(posts)
         const allPosts = posts.map((post) => {
-            return <BlogCardLarge deletePost={deletePost} handleOpen={handleOpen} edit={edit} post={post}/>
+            return <BlogCardLarge key={`large-card-${post.id}`}deletePost={deletePost} handleOpen={handleOpen} edit={edit} post={post}/>
         })
 
         return allPosts
@@ -22,7 +23,7 @@ const AllArticles = ({header, posts, edit = false, handleOpen, deletePost}) => {
                 <BlogCardLarge />
                 <BlogCardLarge />
                 <BlogCardLarge /> */}
-                {posts ? mapArticles(): null}
+                {posts ? mapArticles(): <LoadingIcon />}
             </div>
         </div>
     )

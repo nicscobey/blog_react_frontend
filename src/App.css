@@ -276,7 +276,7 @@ a.color-black:visited {
   background-color: #0081a3;
 }
 
-.Html-border {
+.HTML-border {
   border: 2px solid #fff500;
   background-color: #fff500;
   color: black;
@@ -440,6 +440,10 @@ textarea {
 .comment-top {
   display: flex;
   padding-left: 20px;
+}
+
+.comment-editor {
+  width: 100%;
 }
 
 .comment-author-img {

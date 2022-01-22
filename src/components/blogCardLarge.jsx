@@ -19,11 +19,11 @@ const BlogCardLarge = ({post, edit = false, deletePost}) => {
     if (dateObj.getHours() === 0) {
         hour = 12;
     }
-    else if (dateObj.getHours() >= 12) {
+    else if (dateObj.getHours() > 12) {
         hour = dateObj.getHours() - 12
     }
     else {
-        hour = dateObj.getHours() + 1
+        hour = dateObj.getHours()
     }
 
         return `${dateObj.getMonth()+1}/${dateObj.getDate()}/${dateObj.getFullYear()}`

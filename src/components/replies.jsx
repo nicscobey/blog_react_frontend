@@ -6,12 +6,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState, useEffect } from 'react';
 import NewReply from './newReply';
+import Reply from './reply';
 
 const Replies = ({url, comment_id, account, showNewReply, setShowNewReply, handleShowNewReply, token}) => {
 
     // const [showNewReply, setShowNewReply] = useState(false)
     const localToken = JSON.parse(localStorage.getItem('token'))
-    console.log(account)
+    // console.log(account)
 
     
 
@@ -69,117 +70,114 @@ const deleteReply = async (reply_id) => {
 }
 
 
-const convertToDate = (ms) => {
-    const dateObj = new Date(ms)
+// const convertToDate = (ms) => {
+//     const dateObj = new Date(ms)
 
-let hour
+// let hour
 
-if (dateObj.getHours() === 0) {
-    hour = 12;
-}
-else if (dateObj.getHours() >= 12) {
-    hour = dateObj.getHours() - 12
-}
-else {
-    hour = dateObj.getHours() + 1
-}
+// if (dateObj.getHours() === 0) {
+//     hour = 12;
+// }
+// else if (dateObj.getHours() >= 12) {
+//     hour = dateObj.getHours() - 12
+// }
+// else {
+//     hour = dateObj.getHours() + 1
+// }
 
-return `${dateObj.getMonth()+1}/${dateObj.getDate()}/${dateObj.getFullYear()} at ${hour}:${dateObj.getMinutes()>9 ? dateObj.getMinutes() : "0" + dateObj.getMinutes()} ${dateObj.getHours() >= 12 ? "pm" : "am"}`
-}
+// return `${dateObj.getMonth()+1}/${dateObj.getDate()}/${dateObj.getFullYear()} at ${hour}:${dateObj.getMinutes()>9 ? dateObj.getMinutes() : "0" + dateObj.getMinutes()} ${dateObj.getHours() >= 12 ? "pm" : "am"}`
+// }
 
 useEffect(() => {getReplies()}, [])
 
     let myReplies = replies?.filter(reply => reply.comment === comment_id)
-    console.log(myReplies)
+    // console.log(myReplies)
 
     const mapReplies = () => {
         const mappedReplies = myReplies?.map((reply) => {
 
-            const handleDelete = () => {
-                deleteReply(reply.id)
-            }
+            // const handleDelete = () => {
+            //     deleteReply(reply.id)
+            // }
 
-            console.log(reply.author)
+            // console.log(reply.author)
 
 
             return (
-                <div className="reply" key={`reply-${reply.id}`}>
-                {/* <div className="comment-top"> */}
-                    <div className="reply-top">
-                        <img src="https://www.kindpng.com/picc/m/269-2697881_computer-icons-user-clip-art-transparent-png-icon.png" alt="reply-author" className="reply-author-img" />
-                        <div className="comment-right">
-                            <div className="comment-published">
-                                <b><p className="no-margin">{reply.author.username}</p></b>
-                                <p className="no-margin">{convertToDate(reply.created_at)}</p>
-                            </div>
-                            <p>{reply.content}</p>
-                        </div>
-                        </div>
-                        <div className="flex-center">
-                        <div className="reply-button">
-                            <IconButton  size="small"><ThumbUpIcon /></IconButton>{reply.likes}
-                        </div>
-                        <div className="reply-button">
-                            <IconButton  size="small"><ThumbDownIcon /></IconButton>{reply.dislikes}
-                        </div>
-                        <div className="reply-button">
-                            <IconButton onClick={handleShowNewReply} size="small"><ChatBubbleIcon /></IconButton>Reply
-                        </div>
-                        { account && account.id === reply.author.id ?
-                            <>
-                                <div className="reply-button">
-                                    <IconButton  size="small"><EditIcon /></IconButton>Edit
-                                </div>
-                                <div className="reply-button">
-                                    <IconButton  size="small" onClick={handleDelete}><DeleteIcon /></IconButton>Delete
-                                </div>
-                            </>
-                        : null}
-                        {/* <div className="reply-button">
-                            <Button variant="text" startIcon={<DeleteIcon />}>Delete</Button>
-                        </div> */}
-                    </div>
-                {/* </div> */}
-                </div>
+                <Reply account={account} handleShowNewReply={handleShowNewReply} reply={reply} editReply={editReply} deleteReply={deleteReply} />
+                // <div className="reply" key={`reply-${reply.id}`}>
+                    
+                //     <div className="reply-top">
+                //         <img src="https://www.kindpng.com/picc/m/269-2697881_computer-icons-user-clip-art-transparent-png-icon.png" alt="reply-author" className="reply-author-img" />
+                //         <div className="comment-right">
+                //             <div className="comment-published">
+                //                 <b><p className="no-margin">{reply.author.username}</p></b>
+                //                 <p className="no-margin">{convertToDate(reply.created_at)}</p>
+                //             </div>
+                //             <p>{reply.content}</p>
+                //         </div>
+                //         </div>
+                //         <div className="flex-center">
+                //         <div className="reply-button">
+                //             <IconButton  size="small"><ThumbUpIcon /></IconButton>{reply.likes}
+                //         </div>
+                //         <div className="reply-button">
+                //             <IconButton  size="small"><ThumbDownIcon /></IconButton>{reply.dislikes}
+                //         </div>
+                //         <div className="reply-button">
+                //             <IconButton onClick={handleShowNewReply} size="small"><ChatBubbleIcon /></IconButton>Reply
+                //         </div>
+                //         { account && account.id === reply.author.id ?
+                //             <>
+                //                 <div className="reply-button">
+                //                     <IconButton  size="small"><EditIcon /></IconButton>Edit
+                //                 </div>
+                //                 <div className="reply-button">
+                //                     <IconButton  size="small" onClick={handleDelete}><DeleteIcon /></IconButton>Delete
+                //                 </div>
+                //             </>
+                //         : null}
+                //     </div>
+                // </div>
             )
         })
 
         return mappedReplies
     }
 
-    const Reply = () => {
-        return (
-            <div className="reply">
-                <div className="reply-top">
-                    <img src="https://www.kindpng.com/picc/m/269-2697881_computer-icons-user-clip-art-transparent-png-icon.png" alt="reply-author" className="reply-author-img" />
-                    <div className="comment-right">
-                        <div className="comment-published">
-                            <b><p className="no-margin">Username</p></b>
-                            <p className="no-margin">Month ##, ####</p>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet.  ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                    </div>
-                    </div>
-                    <div className="flex-center">
-                    <div className="reply-button">
-                        <IconButton  size="small"><ThumbUpIcon /></IconButton>#
-                    </div>
-                    <div className="reply-button">
-                        <IconButton  size="small"><ThumbDownIcon /></IconButton>#
-                    </div>
-                    <div className="reply-button">
-                        <IconButton  size="small"><ChatBubbleIcon /></IconButton>Reply
-                    </div>
-                    <div className="reply-button">
-                        <IconButton  size="small"><EditIcon /></IconButton>Edit
-                    </div>
-                    <div className="reply-button">
-                        <IconButton  size="small"><DeleteIcon /></IconButton>Delete
-                    </div>
-                </div>
-            </div>
-        )
-    }
+    // const Reply = () => {
+    //     return (
+    //         <div className="reply">
+    //             <div className="reply-top">
+    //                 <img src="https://www.kindpng.com/picc/m/269-2697881_computer-icons-user-clip-art-transparent-png-icon.png" alt="reply-author" className="reply-author-img" />
+    //                 <div className="comment-right">
+    //                     <div className="comment-published">
+    //                         <b><p className="no-margin">Username</p></b>
+    //                         <p className="no-margin">Month ##, ####</p>
+    //                     </div>
+    //                     <p>Lorem ipsum dolor sit amet.  ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    //                 </div>
+    //                 </div>
+    //                 <div className="flex-center">
+    //                 <div className="reply-button">
+    //                     <IconButton  size="small"><ThumbUpIcon /></IconButton>#
+    //                 </div>
+    //                 <div className="reply-button">
+    //                     <IconButton  size="small"><ThumbDownIcon /></IconButton>#
+    //                 </div>
+    //                 <div className="reply-button">
+    //                     <IconButton  size="small"><ChatBubbleIcon /></IconButton>Reply
+    //                 </div>
+    //                 <div className="reply-button">
+    //                     <IconButton  size="small"><EditIcon /></IconButton>Edit
+    //                 </div>
+    //                 <div className="reply-button">
+    //                     <IconButton  size="small"><DeleteIcon /></IconButton>Delete
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     )
+    // }
 
     return (
         <>

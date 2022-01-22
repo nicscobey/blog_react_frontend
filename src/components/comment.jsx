@@ -8,10 +8,17 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Button } from '@mui/material';
 import NewComment from './newComment';
 import Replies from './replies';
+import EditComment from "./editComment";
+import Edit from "@mui/icons-material/Edit";
 
-const Comment = ({comment, account, url, token, deleteComment}) => {
+const Comment = ({comment, account, url, token, deleteComment, editComment, post_id}) => {
 
     const [showNewReply, setShowNewReply] = useState(false)
+    const [showEditComment, setShowEditComment] = useState(false)
+
+    const openEditComment = () => {
+        setShowEditComment(true)
+    }
 
     const handleShowNewReply = () => {
         setShowNewReply(true)
@@ -32,11 +39,11 @@ const Comment = ({comment, account, url, token, deleteComment}) => {
     if (dateObj.getHours() === 0) {
         hour = 12;
     }
-    else if (dateObj.getHours() >= 12) {
+    else if (dateObj.getHours() > 12) {
         hour = dateObj.getHours() - 12
     }
     else {
-        hour = dateObj.getHours() + 1
+        hour = dateObj.getHours()
     }
     
     return `${dateObj.getMonth()+1}/${dateObj.getDate()}/${dateObj.getFullYear()} at ${hour}:${dateObj.getMinutes()>9 ? dateObj.getMinutes() : "0" + dateObj.getMinutes()} ${dateObj.getHours() >= 12 ? "pm" : "am"}`
@@ -45,7 +52,12 @@ const Comment = ({comment, account, url, token, deleteComment}) => {
     return (
         <>
             <div className="comment">
-                <div className="comment-top">
+                {showEditComment ? 
+                    <div className="comment-top">
+                        {/* <h1>Comment Editor</h1> */}
+                        <EditComment account={account} editComment={editComment} comment={comment} setShowEditComment={setShowEditComment} />
+                    </div> 
+                    : <><div className="comment-top">
                     <img src="https://www.kindpng.com/picc/m/269-2697881_computer-icons-user-clip-art-transparent-png-icon.png" alt="reply-author" className="comment-author-img" />
                     <div className="comment-right">
                         <div className="comment-published">
@@ -68,14 +80,15 @@ const Comment = ({comment, account, url, token, deleteComment}) => {
                     { account && account.id === comment.author.id ?
                             <>
                     <div className="comment-button">
-                        <IconButton><EditIcon /></IconButton>Edit
+                        <IconButton><EditIcon onClick={openEditComment} /></IconButton>Edit
                     </div>
                     <div className="comment-button">
                         <IconButton><DeleteIcon onClick={handleDelete} /></IconButton>Delete
                     </div>
                     </> 
                     : null }
-                </div>
+                </div></>
+                }
                 <Replies token={token} handleShowNewReply={handleShowNewReply} setShowNewReply={setShowNewReply} showNewReply={showNewReply} account={account} comment_id={comment.id} url={url} />
             </div>
             <br />

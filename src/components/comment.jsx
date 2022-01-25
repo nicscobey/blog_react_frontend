@@ -11,7 +11,9 @@ import Replies from './replies';
 import EditComment from "./editComment";
 import Edit from "@mui/icons-material/Edit";
 
-const Comment = ({comment, account, url, token, deleteComment, editComment, post_id}) => {
+const Comment = ({comment, account, url, token, deleteComment, editComment, post_id, refreshToken}) => {
+    console.log(token)
+
 
     const [showNewReply, setShowNewReply] = useState(false)
     const [showEditComment, setShowEditComment] = useState(false)
@@ -89,7 +91,7 @@ const Comment = ({comment, account, url, token, deleteComment, editComment, post
                     : null }
                 </div></>
                 }
-                <Replies token={token} handleShowNewReply={handleShowNewReply} setShowNewReply={setShowNewReply} showNewReply={showNewReply} account={account} comment_id={comment.id} url={url} />
+                <Replies refreshToken={refreshToken} token={token} handleShowNewReply={handleShowNewReply} setShowNewReply={setShowNewReply} showNewReply={showNewReply} account={account} comment_id={comment.id} url={url} />
             </div>
             <br />
         </>

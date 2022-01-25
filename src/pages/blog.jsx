@@ -5,14 +5,15 @@ import { useParams } from "react-router"
 import LoadingIcon from "../components/loadingIcon"
 
 
-const Blog = ({posts, comments, getComments, editComment, deleteComment, newComment, url, account, token}) => {
+const Blog = ({posts, comments, getComments, editComment, deleteComment, newComment, url, account, token, refreshToken}) => {
 
+    console.log(token)
     const showBlog = () => {
-    console.log(posts)
+    // console.log(posts)
     
     const {id} = useParams()
     const post_id = parseInt(id)
-    console.log(id)
+    // console.log(id)
     const post = posts.find(post => post.id === post_id)
     console.log(post)
     //will likely need to make the banner in JS to make the background image dynamic 
@@ -46,9 +47,9 @@ const Blog = ({posts, comments, getComments, editComment, deleteComment, newComm
             </div>
             <div className="blog-content">
                 <h1 className="flex-center">{post.title}</h1>
-                <h3 className="flex-center">{post.subtitle}</h3>
-                <h5 className="flex-center no-margin">{post.author.first_name} {post.author.last_name}</h5>
-                <h5 className="flex-center no-weight no-margin">{convertToDate(post.created_at)}</h5>
+                <h2 className="flex-center">{post.subtitle}</h2>
+                <h4 className="flex-center no-margin">{post.author.first_name} {post.author.last_name}</h4>
+                <h4 className="flex-center no-weight no-margin">{convertToDate(post.created_at)}</h4>
                 <p>{post.content}</p>
                 <br />
                 <hr />
@@ -64,7 +65,7 @@ const Blog = ({posts, comments, getComments, editComment, deleteComment, newComm
                 <br />
                 <br />
                 
-                <Comments token={token} account={account} url={url} post_id={post_id} comments={comments} getComments={getComments} editComment={editComment} deleteComment={deleteComment} newComment={newComment} />
+                <Comments refreshToken={refreshToken} token={token} account={account} url={url} post_id={post_id} comments={comments} getComments={getComments} editComment={editComment} deleteComment={deleteComment} newComment={newComment} />
             </div>
         </div>
     )

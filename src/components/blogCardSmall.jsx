@@ -60,7 +60,7 @@ const BlogCardSmall = ({posts, target}) => {
     }
 
     return (
-        <div className="flex-center">
+        <div className="flex-center flex-wrap">
             {/* <CreateCards />
             <CreateCards /> */}
             {posts ? CreateCards() : <LoadingIcon />}

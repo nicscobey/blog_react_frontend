@@ -6,9 +6,14 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { InputAdornment } from "@mui/material"
+import { styled } from '@mui/material/styles';
 
 
-export default function SelectTheme({handleChange, post}) {
+// const RoundedBox = styled(Box)(({ theme }) => ({
+//   borderRadius: "100px",
+// }));
+
+export default function FilterTheme({handleChange, filter, icon}) {
   // const [age, setAge] = React.useState('');
 
   // const handleChange = (event) => {
@@ -16,14 +21,19 @@ export default function SelectTheme({handleChange, post}) {
   // };
 
   return (
-    <Box sx={{ minWidth: 120 }} className="margin-ten new-blog-entry">
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label" >Select a Topic</InputLabel>
+    <Box sx={{ width: 226, borderRadius: "100px" }} className="margin-ten full-width white-bg-br rounded-btn" >
+      <FormControl size="small" className="full-width">
+        {/* <InputLabel id="filter-theme-label" >Filter by Theme</InputLabel> */}
+        <FilterAltIcon id="filter-icon" className={filter === "" ? "no-filter-response" : ""}/>
         <Select
-          name="theme"
-          labelId="demo-simple-select-label"
-          value={post.theme}
-          label="Select a Topic"
+          name="filter"
+          displayEmpty="true"
+          // labelId="filter-theme-label"
+          id="filter-theme"
+          value={filter}
+          // label="Filter by Theme"
+          // placeholder="hi"
+          className={filter === "" ? "no-filter-response rounded-btn" : "rounded-btn"}
           onChange={handleChange}
               // InputProps={{
               //   startAdornment: (
@@ -32,7 +42,9 @@ export default function SelectTheme({handleChange, post}) {
               //       </InputAdornment>
               //   ),
               //   }}
+          
         >
+          <MenuItem value={""} className="no-filter-response">No Filter</MenuItem>
           <MenuItem value={"CSS"}>CSS</MenuItem>
           <MenuItem value={"HTML"}>HTML</MenuItem>
           <MenuItem value={"JavaScript"}>JavaScript</MenuItem>

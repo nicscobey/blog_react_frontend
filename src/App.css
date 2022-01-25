@@ -20,6 +20,10 @@ a:visited {
   flex-wrap: wrap;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .no-margin {
   margin: 0;
 }
@@ -63,6 +67,14 @@ a:visited {
 .blue-btn:hover {
   background: linear-gradient(90deg, #399697 0%, #007291 100%);
   cursor: pointer;
+}
+
+.disabled-btn {
+  padding: 7px 15px;
+  border-radius: 100px;
+  color: #e5e5e5;
+  /* color: white; */
+  border: 1px solid #e5e5e5;
 }
 
 .no-padding {
@@ -109,8 +121,35 @@ a:visited {
   margin: 5px !important;
 }
 
+.rounded-btn,
+#filter-theme-div,
+#filter-search-div {
+  border-radius: 100px !important;
+}
+
+.filter-search-btn {
+  align-self: center;
+  padding: 10px 20px;
+}
+
 .white-bg {
-  /* background-color: white; */
+  background-color: white;
+}
+
+.white-bg-br {
+  background-color: white;
+}
+
+.flex-left {
+  /* justify-self: flex-start; */
+  /* border: 1px solid blue; */
+  width: calc(100% - 20px);
+  padding: 10px;
+}
+
+.flex-bottom {
+  display: flex;
+  align-items: center;
 }
 
 a.color-black {
@@ -152,9 +191,10 @@ a.color-black:visited {
     rgba(0, 0, 0, 0)
   );
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 50px;
   min-width: 100%;
   color: white;
+  z-index: 20;
 }
 
 .nav {
@@ -171,8 +211,9 @@ a.color-black:visited {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 50px;
+  font-size: 40px;
   overflow: hidden;
+  text-shadow: #012d4a 0px 0px 3px;
 }
 
 .blank-banner {
@@ -271,7 +312,7 @@ a.color-black:visited {
   color: white;
 }
 
-.Css-border {
+.React-border {
   border: 2px solid #0081a3;
   background-color: #0081a3;
 }
@@ -292,9 +333,10 @@ a.color-black:visited {
   background-color: #012d4a;
 }
 
-.React-border {
-  border: 2px solid #1a7d83;
-  background-color: #1a7d83;
+.CSS-border {
+  border: 2px solid #fe9800;
+  background-color: #fe9800;
+  color: black;
 }
 
 .Ruby-border {
@@ -334,6 +376,31 @@ a.color-black:visited {
 
 .all-cards {
   padding-bottom: 60px;
+}
+
+#search-field {
+  background: white;
+  /* border-radius: 100px; */
+}
+
+#filter-icon {
+  position: absolute;
+  /* border: 1px solid red; */
+  left: 14px;
+  top: 8px;
+  /* align-self: center; */
+}
+
+#filter-theme,
+#filter-theme-label {
+  margin-left: 32px;
+  /* background: white; */
+
+  /* border: 5px solid red; */
+}
+
+.no-filter-response {
+  color: #a2a2a2 !important;
 }
 
 .new-article-button {

@@ -69,16 +69,16 @@ const Header = ({getToken, token, logout, newUser, open, setOpen, handleOpen, ha
 
     return (
         <div className="header">
-            <Link to="/"><h2 className="flex-center no-weight no-margin">App Name</h2></Link>
+            <Link to="/" className="flex-center"><img src="https://career-engineer-job-tracker.herokuapp.com/images/logo-large.png" width="100px" /></Link>
             <div className="nav">
                 <a href="/#top-posts" className="nav-link">Top Posts</a>
                 <a href="/#all-articles" className="nav-link">All Posts</a>
                 {/* <h4 onClick={handleOpen} className="nav-link">Log In</h4>
                 <h4 onClick={handleOpenSignup} className="nav-link">Sign Up</h4> */}
-                {token.access || localToken ? loggedIn() : notLoggedIn()}
+                {token && token.access || localToken ? loggedIn() : notLoggedIn()}
             </div>
-            <Login login={handleLogin} handleUser={handleUser} user={user} open={open} handleClose={handleClose}/>
-            <Signup open={openSignup} handleClose={handleCloseSignup} newUser={newUser} />
+            <Login login={handleLogin} handleUser={handleUser} user={user} open={open} handleClose={handleClose} />
+            <Signup open={openSignup} handleClose={handleCloseSignup} newUser={newUser} message="Create an Account"/>
         </div>
     )
 }

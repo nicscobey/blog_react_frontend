@@ -12,11 +12,11 @@ import EditReply from './editReply'
 const Reply = ({url, comment_id, account, handleShowNewReply, showNewReply, token, reply, editReply, deleteReply}) => {
 
     // const [showNewReply, setShowNewReply] = useState(false)
-    const localToken = JSON.parse(localStorage.getItem('token'))
-    console.log(account)
+    // const localToken = JSON.parse(localStorage.getItem('token'))
+    // console.log(account)
 
-    console.log(account)
-    console.log(reply)
+    // console.log(account)
+    // console.log(reply)
     
     const [showEditReply, setShowEditReply] = useState(false)
 
@@ -84,8 +84,8 @@ const Reply = ({url, comment_id, account, handleShowNewReply, showNewReply, toke
 
 const convertToDate = (ms) => {
     const dateObj = new Date(ms)
-    console.log(dateObj)
-    console.log("HOURS: ", dateObj.getHours())
+    // console.log(dateObj)
+    // console.log("HOURS: ", dateObj.getHours())
 
 
 let hour

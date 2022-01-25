@@ -9,6 +9,8 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
 import { useState } from 'react';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const style = {
   position: 'absolute',
@@ -22,7 +24,7 @@ const style = {
   p: 4,
 };
 
-export default function Signup({open, setOpen, handleClose, newUser}) {
+export default function Signup({open, setOpen, handleClose, newUser, message}) {
 //   const [open, setOpen] = React.useState(false);
 //   const handleOpen = () => setOpen(true);
 //   const handleClose = () => setOpen(false);
@@ -46,7 +48,31 @@ export default function Signup({open, setOpen, handleClose, newUser}) {
     myUser[event.target.name] = event.target.value
     setUser(myUser)
     console.log(myUser)
-}
+  }
+
+  const [showPaswordTips, setShowPasswordTips] = useState(false)
+  const [showPaswordConfTips, setShowPasswordConfTips] = useState(false)
+
+
+  const focusPassword = () => {
+    // console.log('focus')
+    setShowPasswordTips(true)
+  }
+
+  const blurPassword = () => {
+    // console.log('leave')
+    setShowPasswordTips(false)
+  }
+
+  const focusPasswordConfirmation = () => {
+    // console.log('focus')
+    setShowPasswordConfTips(true)
+  }
+
+  const blurPasswordConfirmation = () => {
+    // console.log('leave')
+    setShowPasswordConfTips(false)
+  }
 
   return (
     <div>
@@ -60,7 +86,7 @@ export default function Signup({open, setOpen, handleClose, newUser}) {
       >
         <Box sx={style} id="modal">
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Create an Account
+            {message}
           </Typography>
           <form className="flex-column"> 
             <TextField value={user.email} name="email" onChange={handleChange} className="full-width margin-ten white-bg" size="small" placeholder="Email" InputProps={{
@@ -91,23 +117,40 @@ export default function Signup({open, setOpen, handleClose, newUser}) {
                 </InputAdornment>
             ),
             }}/>
-            <TextField value={user.password} name="password" onChange={handleChange} className="full-width margin-ten white-bg" size="small" placeholder="Password" type="password'" InputProps={{
+            <TextField onFocus={focusPassword} onBlur={blurPassword} value={user.password} name="password" onChange={handleChange} className="full-width margin-ten white-bg" size="small" placeholder="Password" type="password" InputProps={{
             startAdornment: (
                 <InputAdornment position="start">
                     <LockIcon />
                 </InputAdornment>
             ),
             }}/>
-            <TextField value={user.confirm_password} name="confirm_password" onChange={handleChange} className="full-width margin-ten white-bg" size="small" type="password" placeholder="Confirm Password" InputProps={{
+            {
+              showPaswordTips ? 
+              <div className="flex-left gray-bg"><b>Passwords must have:</b>
+                  <div className="flex-bottom">&nbsp;&nbsp;{user.password.length > 5 ? <CheckCircleOutlineIcon /> : <RadioButtonUncheckedIcon />}&nbsp;6 or more characters</div>
+                  <div className="flex-bottom">&nbsp;&nbsp;{user.password.match(/\d+/g) ? <CheckCircleOutlineIcon /> : <RadioButtonUncheckedIcon />}&nbsp;At least 1 number</div>
+                  <div className="flex-bottom">&nbsp;&nbsp;{user.password.toUpperCase() != user.password && user.password.toLowerCase() != user.password ? <CheckCircleOutlineIcon /> : <RadioButtonUncheckedIcon />}&nbsp;Uppercase and lowercase letters</div>
+              </div> 
+            : null
+            } 
+            <TextField onFocus={focusPasswordConfirmation} onBlur={blurPasswordConfirmation} value={user.confirm_password} name="confirm_password" onChange={handleChange} className="full-width margin-ten white-bg" size="small" type="password" placeholder="Confirm Password" InputProps={{
             startAdornment: (
                 <InputAdornment position="start">
                     <LockIcon />
                 </InputAdornment>
             ),
             }}/>
+            {
+              showPaswordConfTips ? 
+              <div className="flex-left gray-bg">
+                {user.password === user.confirm_password ? "Passwords match!" : "Passwords must match."}
+              </div> 
+            : null
+            } 
           </form>
+          <br />
           <div className="flex-center">
-            <div className="blue-btn horizontal-margin" onClick={handleSignup}>Sign Up</div>
+            <div className={`${user.password.length > 5 && user.password.match(/\d+/g) && user.password.toUpperCase() != user.password && user.password.toLowerCase() != user.password && user.password === user.confirm_password ? "blue-btn" : "disabled-btn"} horizontal-margin`} onClick={user.password.length > 5 && user.password.match(/\d+/g) && user.password.toUpperCase() != user.password && user.password.toLowerCase() != user.password && user.password === user.confirm_password ? handleSignup : null}>Sign Up</div>
             <div className="empty-btn horizontal-margin" onClick={handleClose}>Cancel</div>
         </div>
         </Box>

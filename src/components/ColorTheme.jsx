@@ -6,7 +6,7 @@ const ColorTheme = createTheme({
             main: '#42a8aa'
         },
         secondary: {
-            main: '#ffcc15'
+            main: '#fe9800'
         },
         success: {
             main: '#3E6F8E'

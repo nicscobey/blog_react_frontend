@@ -10,7 +10,9 @@ import Replies from './replies';
 import { useState } from 'react';
 import Comment from './comment';
 
-const Comments = ({comments, getComments, editComment, deleteComment, newComment, post_id, url, account, token}) => {
+const Comments = ({comments, getComments, editComment, deleteComment, newComment, post_id, url, account, token, refreshToken}) => {
+
+    console.log(token)
 
     const [showComments, setShowComments] = useState(false)
     const [comment, setComment] = useState(false)
@@ -32,7 +34,7 @@ const Comments = ({comments, getComments, editComment, deleteComment, newComment
     }
 
     let myComments = comments?.filter(comment => comment.blog === post_id)
-    console.log(myComments)
+    // console.log(myComments)
 
     // comments?.forEach(comment => {
     //     if (post.published) {
@@ -44,7 +46,7 @@ const Comments = ({comments, getComments, editComment, deleteComment, newComment
     // })
 
     const mapMyComments = () => {
-        console.log(myComments)
+        // console.log(myComments)
         const returnComments = myComments?.map((comment) => {
 
             // const [showNewReply, setShowNewReply] = useState(false)
@@ -87,7 +89,7 @@ const Comments = ({comments, getComments, editComment, deleteComment, newComment
         // )
 
         return (
-            <Comment key={`comment-${comment.id}`} deleteComment={deleteComment} token={token} editComment={editComment} comment={comment} account={account} url={url} post_id={post_id}  />
+            <Comment refreshToken={refreshToken} key={`comment-${comment.id}`} deleteComment={deleteComment} token={token} editComment={editComment} comment={comment} account={account} url={url} post_id={post_id}  />
         )
     
     })

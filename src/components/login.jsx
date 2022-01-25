@@ -58,6 +58,7 @@ export default function Login({open, setOpen, handleClose, username, password, l
           ),
         }}/>
           </form>
+          <br />
           <div className="flex-center">
             <div className="blue-btn horizontal-margin" onClick={login}>Log In</div>
             <div className="empty-btn horizontal-margin" onClick={handleClose}>Cancel</div>

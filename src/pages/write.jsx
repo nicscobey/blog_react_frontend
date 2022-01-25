@@ -30,6 +30,7 @@ const Write = ({newPost, account, title, subtitle, content, theme, banner, token
         published: true,
         banner: banner
     })
+
     // const [post, setPost] = useState({
     //     title: "",
     //     subtitle: "",
@@ -55,11 +56,15 @@ const Write = ({newPost, account, title, subtitle, content, theme, banner, token
     }
 
     const handlePublish = () => {
-        console.log(account.id)
-        console.log(post)
-        newPost(post)
-        history.push('/')
-
+        if (post.title === "" || post.subtitle === "" || post.content === "" || post.theme === "" || post.banner === "") {
+            alert("Please make sure that your post includes a banner image, title, subtitle, content, and a theme.")
+        }
+        else {
+            console.log(account.id)
+            console.log(post)
+            newPost(post)
+            history.push('/')
+        }
     }
 
     const handleSave = () => {
@@ -101,10 +106,11 @@ const Write = ({newPost, account, title, subtitle, content, theme, banner, token
             <form className="flex-column blog-content">
                 <TextareaAutosize onChange={handleChange} value={post.title} placeholder="Click here to add a title..." className="new-post new-post-title" name="title" />
                 <TextareaAutosize onChange={handleChange} value={post.subtitle}  name="subtitle" placeholder="Click here to add a subtitle..." className="new-post new-post-subtitle" />
-                <h5 className="flex-center no-margin">Firstname Lastname</h5>
-                <h5 className="flex-center no-weight no-margin">Month ##, ####</h5>
+                {/* <h5 className="flex-center no-margin">Firstname Lastname</h5> */}
+                {/* <h5 className="flex-center no-weight no-margin">Month ##, ####</h5> */}
                 <TextareaAutosize onChange={handleChange} value={post.content}  placeholder="Click here to add the content of your post..." className="new-post-text" name="content" />
                 <SelectTheme post={post} handleChange={handleChange} className="margin-ten"/>
+                <br />
                 <div className="flex-center">
                     <div className="blue-btn horizontal-margin" onClick={handlePublish}>Publish</div>
                     <div className="empty-btn horizontal-margin"  onClick={handleSave}>Save Draft</div>

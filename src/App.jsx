@@ -20,16 +20,16 @@ function App() {
   
   // AUTH FUNCTIONS
   const [token, setToken] = useState("")
-  const localToken = JSON.parse(localStorage.getItem('token'))
+  let localToken = JSON.parse(localStorage.getItem('token')) || ""
   const [account, setAccount] = useState(null)
   const getAccountInfo = async(username) => {
     const response = await fetch(url + 'user/', {
       method: "get",
     })
     const users = await response.json()
-    console.log(users)
+    // console.log(users)
     const user = users.find(user => user.username === username)
-    console.log(user)
+    // console.log(user)
     setAccount(user)
     localStorage.setItem("user", JSON.stringify(user))
     console.log(localStorage.user)
@@ -48,7 +48,7 @@ function App() {
 
     const data = await response.json()
     // console.log(data)
-    if (data.detail) {
+    if (data.detail==='No active account found with the given credentials') {
       // console.log('oh no!')
       console.log(data)
       alert("Invalid username or password")
@@ -61,14 +61,28 @@ function App() {
     }
   }
 
-  const refreshToken = async (token) => {
-    const response = await fetch(url + 'api/token/refresh', {
+  const refreshToken = async () => {
+
+    console.log(token)
+
+    const response = await fetch(url + 'api/token/refresh/', {
       method: 'post',
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(token)
     })
+    const data = await response.json()
+    console.log(data)
+    const tempToken = {...token}
+    tempToken.access = data.access
+    console.log(tempToken)
+    setToken(tempToken)
+    console.log(localToken)
+    localStorage.setItem("token", JSON.stringify(tempToken))
+    console.log(token)
+    localToken = JSON.parse(localStorage.getItem('token'))
+    console.log(JSON.parse(localStorage.getItem('token')))
   }
   
 
@@ -78,6 +92,7 @@ function App() {
     setToken("")
     setAccount(null)
     history.push('/')
+    localToken = ""
   }
 
   // NEW USER
@@ -136,13 +151,25 @@ function App() {
   }
 
   useEffect(() => {getPosts()}, [])
+  useEffect(() => {
+    if(JSON.parse(localStorage.getItem('token'))) {
+      console.log('hi')
+      // localStorage.setItem("token", JSON.stringify(tempToken))
+      localToken = JSON.parse(localStorage.getItem('token'))
+      console.log(JSON.parse(localStorage.getItem('token')))
+      setToken(JSON.parse(localStorage.getItem('token')))
+      setAccount(JSON.parse(localStorage.getItem('user')))
+    }
+  }, [])
+
 
   // NEW POST
   const newPost = async (post) => {
+    await refreshToken()
     const response = await fetch(url + 'blog/', {
       method: "post",
       headers: {
-        Authorization: `Bearer ${token.access}`,
+        Authorization: `Bearer ${localToken.access}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify(post)
@@ -159,12 +186,13 @@ function App() {
   //EDIT POST
   const editPost = async (post, post_id) => {
 
-    console.log(token.access)
-    console.log(localToken)
-    console.log(localToken.access)
+    // console.log(token.access)
+    // console.log(localToken)
+    // console.log(localToken.access)
 
-    console.log(post)
-    console.log(post_id)
+    // console.log(post)
+    // console.log(post_id)
+    await refreshToken()
 
     const response = await fetch(url + 'blog/' + post_id + '/', {
       method: "put",
@@ -192,6 +220,7 @@ function App() {
 
     // console.log(post)
     console.log(post_id)
+    await refreshToken()
 
     const response = await fetch(url + 'blog/' + post_id + '/', {
       method: "delete",
@@ -229,10 +258,12 @@ const getComments = async () => {
 
 // NEW COMMENT
 const newComment = async (comment) => {
+  await refreshToken()
+
   const response = await fetch(url + 'comment/', {
     method: "post",
     headers: {
-      Authorization: `Bearer ${token.access}`,
+      Authorization: `Bearer ${localToken.access}`,
       "Content-Type": "application/json"
     },
     body: JSON.stringify(comment)
@@ -245,6 +276,8 @@ const newComment = async (comment) => {
 
 //EDIT COMMENT
 const editComment = async (comment, comment_id) => {
+  await refreshToken()
+
   const response = await fetch(url + 'comment/' + comment_id + '/', {
     method: "put",
     headers: {
@@ -259,7 +292,7 @@ const editComment = async (comment, comment_id) => {
 
 //DELETE COMMENT
 const deleteComment = async (comment_id) => {
-
+  await refreshToken()
   const response = await fetch(url + 'comment/' + comment_id + '/', {
     method: "delete",
     headers: {
@@ -334,19 +367,19 @@ const deleteComment = async (comment_id) => {
   return (
     <div className="App">
       <ThemeProvider theme={ColorTheme}>
-        <Header newUser={newUser} logout={logout} token={token} getToken={getToken} open={open} setOpen={setOpen} handleOpen={handleOpen} handleClose={handleClose} openSignup={openSignup} setOpenSignup={setOpenSignup} handleOpenSignup={handleOpenSignup} handleCloseSignup={handleCloseSignup} />
+        <Header newUser={newUser} logout={logout} token={localToken} getToken={getToken} open={open} setOpen={setOpen} handleOpen={handleOpen} handleClose={handleClose} openSignup={openSignup} setOpenSignup={setOpenSignup} handleOpenSignup={handleOpenSignup} handleCloseSignup={handleCloseSignup} />
         <Switch>
           <Route exact path="/">
-            <Home posts={publishedPosts} token={token} handleOpen={handleOpen} handleOpenSignup={handleOpenSignup} />
+            <Home refreshToken={refreshToken} posts={publishedPosts} token={localToken} handleOpen={handleOpen} handleOpenSignup={handleOpenSignup} />
           </Route>
           <Route path="/blog/:id" render={(rp) => (
-            <Blog token={token} {...rp} url={url} account={account} posts={publishedPosts} getPosts={getPosts} comments={comments} getComments={getComments} editComment={editComment} deleteComment={deleteComment} newComment={newComment} />
+            <Blog refreshToken={refreshToken} token={localToken} {...rp} url={url} account={account} posts={publishedPosts} getPosts={getPosts} comments={comments} getComments={getComments} editComment={editComment} deleteComment={deleteComment} newComment={newComment} />
           )} />
           {/* <Route path="/blog">
             <Blog />
           </Route> */}
           <Route path="/new">
-            <Write token={token} newPost={newPost} title="" subtitle="" theme="" content="" banner="" account={account} />
+            <Write token={localToken} newPost={newPost} title="" subtitle="" theme="" content="" banner="" account={account} />
           </Route>
           {/* <Route path="/edit">
             <Edit editPost={editPost} title="edit" subtitle="edit" theme="CSS" content="edit" account={account} />
@@ -355,7 +388,7 @@ const deleteComment = async (comment_id) => {
             <Edit editPost={editPost} posts={posts} account={account} />
           </Route>
           <Route exact path="/my">
-            <Account account={account} posts={posts} token={token} deletePost={deletePost}/>
+            <Account account={account} posts={posts} token={localToken} deletePost={deletePost}/>
           </Route>
         </Switch>
         <Footer />

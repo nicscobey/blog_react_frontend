@@ -8,7 +8,9 @@ import { useState, useEffect } from 'react';
 import NewReply from './newReply';
 import Reply from './reply';
 
-const Replies = ({url, comment_id, account, showNewReply, setShowNewReply, handleShowNewReply, token}) => {
+const Replies = ({url, comment_id, account, showNewReply, setShowNewReply, handleShowNewReply, token, refreshToken}) => {
+
+  console.log(token)
 
     // const [showNewReply, setShowNewReply] = useState(false)
     const localToken = JSON.parse(localStorage.getItem('token'))
@@ -30,10 +32,16 @@ const getReplies = async () => {
 
 // NEW REPLY
 const newReply = async (reply) => {
+  // console.log("🌴🌴🌴🌴🌴🌴🌴")
+  await refreshToken()
+  const myToken = JSON.parse(localStorage.getItem('token'))
+  // console.log(reply)
+  // console.log(token.access)
+
   const response = await fetch(url + 'reply/', {
     method: "post",
     headers: {
-      Authorization: `Bearer ${token.access}`,
+      Authorization: `Bearer ${myToken.access}`,
       "Content-Type": "application/json"
     },
     body: JSON.stringify(reply)
@@ -44,10 +52,13 @@ const newReply = async (reply) => {
 
 //EDIT REPLIES
 const editReply = async (reply, reply_id) => {
+  await refreshToken()
+  const myToken = JSON.parse(localStorage.getItem('token'))
+
   const response = await fetch(url + 'reply/' + reply_id + '/', {
     method: "put",
     headers: {
-      Authorization: `Bearer ${localToken.access}`,
+      Authorization: `Bearer ${myToken.access}`,
       "Content-Type": "application/json"
     },
     body: JSON.stringify(reply)
@@ -58,11 +69,13 @@ const editReply = async (reply, reply_id) => {
 
 //DELETE REPLIES
 const deleteReply = async (reply_id) => {
+  await refreshToken()
+  const myToken = JSON.parse(localStorage.getItem('token'))
 
   const response = await fetch(url + 'reply/' + reply_id + '/', {
     method: "delete",
     headers: {
-      Authorization: `Bearer ${localToken.access}`,
+      Authorization: `Bearer ${myToken.access}`,
     },
   })
 

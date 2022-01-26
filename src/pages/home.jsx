@@ -4,7 +4,7 @@ import NewArticleButton from "../components/newArticleButton"
 import { Link } from "react-router-dom"
 import LoadingIcon from "../components/loadingIcon"
 
-const Home = ({posts, token, handleOpen, handleOpenSignup, refreshToken}) => {
+const Home = ({posts, token, handleOpen, handleOpenSignup, refreshToken, getPosts}) => {
     const localToken = JSON.parse(localStorage.getItem('token'))
 
     console.log(token)
@@ -26,7 +26,7 @@ const Home = ({posts, token, handleOpen, handleOpenSignup, refreshToken}) => {
             {/* <div className="flex-center"> */}
                 <BlogCardSmall posts={posts} target="blog" />
             {/* </div> */}
-            <AllArticles posts={posts} header={"All Articles"}/>
+            <AllArticles posts={posts} getPosts={getPosts} header={"All Articles"}/>
             <NewArticleButton />
         </div>
     )

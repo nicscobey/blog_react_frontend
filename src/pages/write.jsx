@@ -56,6 +56,8 @@ const Write = ({newPost, account, title, subtitle, content, theme, banner, token
     }
 
     const handlePublish = () => {
+        
+
         if (post.title === "" || post.subtitle === "" || post.content === "" || post.theme === "" || post.banner === "") {
             alert("Please make sure that your post includes a banner image, title, subtitle, content, and a theme.")
         }

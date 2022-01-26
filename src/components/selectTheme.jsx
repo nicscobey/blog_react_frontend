@@ -21,6 +21,7 @@ export default function SelectTheme({handleChange, post}) {
         <InputLabel id="demo-simple-select-label" >Select a Topic</InputLabel>
         <Select
           name="theme"
+          className="rounded-btn"
           labelId="demo-simple-select-label"
           value={post.theme}
           label="Select a Topic"

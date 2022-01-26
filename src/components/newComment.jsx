@@ -6,7 +6,7 @@ import { useState } from 'react';
 const useStyles = makeStyles(() => ({
     noBorder: {
       border: "none",
-    },
+    }
   }));
 
 const NewComment = ({newComment, post_id, account, setComment}) => {

@@ -5,7 +5,7 @@ const Footer = () => {
         <div className="footer">
             <Subscribe />
             <div className="footer-text">
-                <h4>App Name</h4>
+                <h4>The Career Engineer</h4>
                 <div className="footer-columns">
                     <div className="footer-column">
                         <h5 className="no-margin">Column 1</h5>

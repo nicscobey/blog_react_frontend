@@ -5,7 +5,7 @@ import { useParams } from "react-router"
 import LoadingIcon from "../components/loadingIcon"
 
 
-const Blog = ({posts, comments, getComments, editComment, deleteComment, newComment, url, account, token, refreshToken}) => {
+const Blog = ({posts, comments, getComments, editComment, deleteComment, newComment, url, account, token, refreshToken, localToken}) => {
 
     console.log(token)
     const showBlog = () => {
@@ -41,7 +41,7 @@ const Blog = ({posts, comments, getComments, editComment, deleteComment, newComm
     return (
         <div>
             <ScrollToTop />
-            <NewArticleButton />
+            {token !== "" || localToken ? <NewArticleButton />  : null}
             <div className="banner">
                 {post.banner !== "" ? <img className="banner-image" src={post.banner} alt="banner" />: null}
             </div>

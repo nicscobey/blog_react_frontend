@@ -11,6 +11,8 @@ import { useParams, useHistory } from "react-router"
 import { compose } from "@mui/system"
 import LoadingIcon from "../components/loadingIcon"
 import BannerModal from "../components/bannerModal"
+import Confirm from "../components/cancelModal"
+
 
 // const Write = ({newPost, account}) => {
 const Edit = ({editPost, posts, account}) => {
@@ -34,6 +36,10 @@ const Edit = ({editPost, posts, account}) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const [openCancel, setOpenCancel] = useState(false);
+    const handleOpenCancel = () => setOpenCancel(true);
+    const handleCloseCancel = () => setOpenCancel(false);
 
     const [post, setPost] = useState({
         title: myPost.title,
@@ -116,11 +122,12 @@ const Edit = ({editPost, posts, account}) => {
                 <TextareaAutosize onChange={handleChange} value={post.content}  placeholder="Click here to add the content of your post..." className="new-post-text" name="content" />
                 <SelectTheme post={post} handleChange={handleChange} className="margin-ten"/>
                 <div className="flex-center">
-                    <div className="blue-btn horizontal-margin" onClick={handlePublish}>Publish Changes</div>
+                    <div className="blue-btn horizontal-margin center-text" onClick={handlePublish}>Publish Changes</div>
                     {/* <div className="empty-btn horizontal-margin">Save Draft</div> */}
-                    <div className="empty-btn horizontal-margin">Cancel Changes</div>
+                    <div className="empty-btn horizontal-margin center-text" onClick={handleOpenCancel}>Cancel Changes</div>
                 </div>
             </form>
+            {openCancel ? <Confirm message={"Are you sure you wish to cancel wthese changes?"} open={openCancel} handleClose={handleCloseCancel} /> : null}
             <br />
             <br />
             <br />

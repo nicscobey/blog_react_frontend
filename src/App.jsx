@@ -13,8 +13,8 @@ import ColorTheme from './components/ColorTheme';
 import Edit from './pages/edit';
 
 function App() {
-  const url = 'https://blog-backend-django-ns.herokuapp.com/'
-  // const url = 'http://127.0.0.1:8000/'
+  // const url = 'https://blog-backend-django-ns.herokuapp.com/'
+  const url = 'http://127.0.0.1:8000/'
   const [count, setCount] = useState(0)
   const history = useHistory()
   
@@ -111,7 +111,11 @@ function App() {
       // them: post.theme,
       // author_id: account.id
     })
-    console.log(response)
+    // console.log(response)
+    // console.log(response.json())
+    // const data = await response.json()
+    // console.log(data)
+
 
     // getPosts()
   }
@@ -373,7 +377,7 @@ const deleteComment = async (comment_id) => {
             <Home getPosts={getPosts} refreshToken={refreshToken} posts={publishedPosts} token={localToken} handleOpen={handleOpen} handleOpenSignup={handleOpenSignup} />
           </Route>
           <Route path="/blog/:id" render={(rp) => (
-            <Blog refreshToken={refreshToken} token={localToken} {...rp} url={url} account={account} posts={publishedPosts} getPosts={getPosts} comments={comments} getComments={getComments} editComment={editComment} deleteComment={deleteComment} newComment={newComment} />
+            <Blog localToken={localToken} refreshToken={refreshToken} token={localToken} {...rp} url={url} account={account} posts={publishedPosts} getPosts={getPosts} comments={comments} getComments={getComments} editComment={editComment} deleteComment={deleteComment} newComment={newComment} />
           )} />
           {/* <Route path="/blog">
             <Blog />

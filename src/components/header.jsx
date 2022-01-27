@@ -71,7 +71,7 @@ const Header = ({getToken, token, logout, newUser, open, setOpen, handleOpen, ha
         <div className="header">
             <Link to="/" className="flex-center"><img src="https://career-engineer-job-tracker.herokuapp.com/images/logo-large.png" width="100px" /></Link>
             <div className="nav">
-                <a href="/#top-posts" className="nav-link">Top Posts</a>
+                <a href="/#top-posts" className="nav-link">Latest Posts</a>
                 <a href="/#all-articles" className="nav-link">All Posts</a>
                 {/* <h4 onClick={handleOpen} className="nav-link">Log In</h4>
                 <h4 onClick={handleOpenSignup} className="nav-link">Sign Up</h4> */}

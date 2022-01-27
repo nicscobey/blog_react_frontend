@@ -71,7 +71,12 @@ const Account = ({token, posts, account, deletePost}) => {
             <h3 className="flex-center no-margin add-padding" id="top-posts">My Drafts</h3>
             <BlogCardSmall posts={draftPosts} target={"edit"}/>
             <AllArticles deletePost={deletePost} edit={true} posts={publishedPosts} header={"My Publications"} />
-            <h3 className="flex-center no-margin add-padding" id="top-posts">Account Settings</h3>
+            <br />
+            <div className="flex-center margin-ten">
+                
+                <div className="yellow-btn no-weight">Change Account Settings</div>
+            </div>
+            <br />
             <NewArticleButton />
             <br />
             <br />

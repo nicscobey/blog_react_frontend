@@ -9,6 +9,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from "@mui/material"
 import { useHistory } from "react-router"
 import BannerModal from "../components/bannerModal"
+import Confirm from "../components/cancelModal"
+
 
 // const Write = ({newPost, account}) => {
 const Write = ({newPost, account, title, subtitle, content, theme, banner, token}) => {
@@ -17,6 +19,10 @@ const Write = ({newPost, account, title, subtitle, content, theme, banner, token
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const [openCancel, setOpenCancel] = useState(false);
+    const handleOpenCancel = () => setOpenCancel(true);
+    const handleCloseCancel = () => setOpenCancel(false);
 
     console.log(account)
 
@@ -114,11 +120,12 @@ const Write = ({newPost, account, title, subtitle, content, theme, banner, token
                 <SelectTheme post={post} handleChange={handleChange} className="margin-ten"/>
                 <br />
                 <div className="flex-center">
-                    <div className="blue-btn horizontal-margin" onClick={handlePublish}>Publish</div>
-                    <div className="empty-btn horizontal-margin"  onClick={handleSave}>Save Draft</div>
-                    <div className="empty-btn horizontal-margin">Cancel Draft</div>
+                    <div className="blue-btn horizontal-margin center-text" onClick={handlePublish}>Publish</div>
+                    <div className="empty-btn horizontal-margin center-text"  onClick={handleSave}>Save Draft</div>
+                    <div className="empty-btn horizontal-margin center-text" onClick={handleOpenCancel}>Cancel Draft</div>
                 </div>
             </form>
+            {openCancel ? <Confirm message={"Are you sure you wish to cancel writing this post? This post will not be saved, and this action cannot be undone."} open={openCancel} handleClose={handleCloseCancel} /> : null}
             <br />
             <br />
             <br />

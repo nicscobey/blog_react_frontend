@@ -3,38 +3,27 @@ import LoadingIcon from "./loadingIcon"
 
 const BlogCardSmall = ({posts, target}) => {
 
-    // console.log(hi)
-    // console.log(posts)
-    // theme border will likely need to be written in JS to make the color dynamic based on theme
-
-    // {posts ? console.log(posts[0].created_at) : null}
-
-    posts?.sort((a,b) => {
-        // console.log('hi')
-        return a.created_at - b.created_at
-    })
-    // const latestPosts = () => {
-    //     const sortedPosts = posts.sort((a,b) => a.created_at > b.created_at ? 1 : -1)
-    //     return sortedPosts()
-    // }
-
-    // console.log(posts)
-
-    const getLatestPosts = () => {
-        const latestPosts = []
-        // console.log(posts)
-        // console.log(posts.length)
-
-        for (let i = 0; i < 3 && i < posts.length ; i++) {
-            // console.log(i)
-            latestPosts.push(posts[i])
-            // console.log(latestPosts)
+    const sortPosts = ( a, b ) => {
+        if ( a.created_at > b.created_at){
+            return -1;
         }
-        // console.log(latestPosts)
-        return latestPosts
+        if ( a.created_at < b.created_at){
+            return 1;
+        }
+        return 0;
     }
 
-    // console.log(getLatestPosts())
+    const getLatestPosts = () => {
+
+        const sortedPosts = posts.sort(sortPosts)
+
+        const latestPosts = []
+
+        for (let i = 0; i < 3 && i < sortedPosts.length ; i++) {
+            latestPosts.push(sortedPosts[i])
+        }
+        return latestPosts
+    }
 
     const CreateCards = () => {
 

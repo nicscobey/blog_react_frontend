@@ -27,7 +27,7 @@ const Home = ({posts, token, handleOpen, handleOpenSignup, refreshToken, getPost
                 <BlogCardSmall posts={posts} target="blog" />
             {/* </div> */}
             <AllArticles posts={posts} getPosts={getPosts} header={"All Articles"}/>
-            <NewArticleButton />
+            {token !== "" || localToken ? <NewArticleButton />  : null}
         </div>
     )
 }

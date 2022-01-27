@@ -49,6 +49,7 @@ a:visited {
   border-radius: 100px;
   color: black;
   padding: 7px 15px;
+  text-align: center;
 }
 
 .yellow-btn:hover {
@@ -62,6 +63,7 @@ a:visited {
   padding: 7px 15px;
   border-radius: 100px;
   color: white;
+  text-align: center;
 }
 
 .blue-btn:hover {
@@ -75,6 +77,7 @@ a:visited {
   color: #e5e5e5;
   /* color: white; */
   border: 1px solid #e5e5e5;
+  text-align: center;
 }
 
 .no-padding {
@@ -88,6 +91,7 @@ a:visited {
   border-radius: 100px;
   color: #0081a3;
   border: 1px solid #0081a3;
+  text-align: center;
 }
 
 .empty-btn:hover {
@@ -101,9 +105,8 @@ a:visited {
   margin: 0 auto;
 }
 
-.center-div {
-  /* display: flex; */
-  /* justify-content: center; */
+.center-text {
+  text-align: center;
 }
 
 .flex-column {
@@ -214,6 +217,7 @@ a.color-black:visited {
   font-size: 40px;
   overflow: hidden;
   text-shadow: #012d4a 0px 0px 3px;
+  text-align: center;
 }
 
 .blank-banner {
@@ -230,6 +234,7 @@ a.color-black:visited {
 
 .cta {
   background: linear-gradient(270deg, #fff500 0%, #ffcc15 100%);
+  text-align: center;
 }
 
 .new-post-banner {
@@ -243,6 +248,7 @@ a.color-black:visited {
   justify-content: center;
   align-items: center;
   font-size: 50px;
+  text-align: center;
 }
 
 .new-post-banner:hover {
@@ -278,6 +284,7 @@ a.color-black:visited {
 .nav-link {
   margin: 20px 20px 0 20px;
   font-weight: 300;
+  text-align: center;
 }
 
 .nav-link:hover {
@@ -606,4 +613,31 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+@media (max-width: 450px) {
+  .nav-link {
+    font-size: 14px;
+    margin: 20px 10px 0 10px;
+  }
+
+  .footer-text,
+  .footer-columns {
+    text-align: center;
+  }
+  .footer-columns {
+    flex-direction: column;
+  }
+  .footer-column {
+    padding: 10px;
+  }
+  #modal {
+    max-width: 80%;
+  }
+  .blog-content {
+    max-width: 90%;
+  }
+  .footer {
+    padding-bottom: 20px;
+  }
 }

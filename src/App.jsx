@@ -13,8 +13,8 @@ import ColorTheme from './components/ColorTheme';
 import Edit from './pages/edit';
 
 function App() {
-  // const url = 'https://blog-backend-django-ns.herokuapp.com/'
-  const url = 'http://127.0.0.1:8000/'
+  const url = 'https://blog-backend-django-ns.herokuapp.com/'
+  // const url = 'http://127.0.0.1:8000/'
   const [count, setCount] = useState(0)
   const history = useHistory()
   

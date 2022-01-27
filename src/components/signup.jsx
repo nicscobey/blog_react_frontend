@@ -41,6 +41,14 @@ export default function Signup({open, setOpen, handleClose, newUser, message}) {
   const handleSignup = () => {
     handleClose()
     newUser({email: user.email, username: user.username, first_name: user.first_name, last_name: user.last_name, password: user.password})
+    setUser({
+      email: "",
+      username: "",
+      first_name: "",
+      last_name: "",
+      password: "",
+      confirm_password: ""
+    })
   }
 
   const handleChange = (event) => {

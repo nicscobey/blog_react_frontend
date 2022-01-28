@@ -9,7 +9,7 @@ import NewReply from './newReply';
 import EditReply from './editReply'
 
 
-const Reply = ({url, comment_id, account, handleShowNewReply, showNewReply, token, reply, editReply, deleteReply}) => {
+const Reply = ({url, comment_id, account, handleShowNewReply, showNewReply, token, localToken, reply, editReply, deleteReply}) => {
 
     // const [showNewReply, setShowNewReply] = useState(false)
     // const localToken = JSON.parse(localStorage.getItem('token'))
@@ -135,6 +135,8 @@ return `${dateObj.getMonth()+1}/${dateObj.getDate()}/${dateObj.getFullYear()} at
                         </div>
                         </div>
                         <div className="flex-center">
+                        {token !== "" || localToken ?
+                <>
                         <div className="reply-button">
                             <IconButton  size="small"><ThumbUpIcon /></IconButton>{reply.likes}
                         </div>
@@ -143,7 +145,7 @@ return `${dateObj.getMonth()+1}/${dateObj.getDate()}/${dateObj.getFullYear()} at
                         </div>
                         <div className="reply-button">
                             <IconButton onClick={handleShowNewReply} size="small"><ChatBubbleIcon /></IconButton>Reply
-                        </div>
+                        </div></> : null}
                         { account && account.id === reply.author.id ?
                             <>
                                 <div className="reply-button">

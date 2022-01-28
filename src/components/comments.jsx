@@ -10,7 +10,7 @@ import Replies from './replies';
 import { useState } from 'react';
 import Comment from './comment';
 
-const Comments = ({comments, getComments, editComment, deleteComment, newComment, post_id, url, account, token, refreshToken}) => {
+const Comments = ({comments, getComments, editComment, deleteComment, newComment, post_id, url, account, token, refreshToken, localToken}) => {
 
     console.log(token)
 
@@ -28,7 +28,7 @@ const Comments = ({comments, getComments, editComment, deleteComment, newComment
     const writeComment = () => {
         return (
             <>
-        {comment ? null : <div className="yellow-btn inline-block" onClick={handleComment}>Write a Comment</div>}
+        {comment ? null : <div className="yellow-btn inline-block" onClick={token !== "" || localToken ? handleComment : null}>{token !== "" || localToken ? "Write a Comment": "Log in to write a comment"}</div>}
         </>
         )
     }
@@ -89,7 +89,7 @@ const Comments = ({comments, getComments, editComment, deleteComment, newComment
         // )
 
         return (
-            <Comment refreshToken={refreshToken} key={`comment-${comment.id}`} deleteComment={deleteComment} token={token} editComment={editComment} comment={comment} account={account} url={url} post_id={post_id}  />
+            <Comment refreshToken={refreshToken} key={`comment-${comment.id}`} deleteComment={deleteComment} token={token} localToken={localToken} editComment={editComment} comment={comment} account={account} url={url} post_id={post_id}  />
         )
     
     })

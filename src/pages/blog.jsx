@@ -65,7 +65,7 @@ const Blog = ({posts, comments, getComments, editComment, deleteComment, newComm
                 <br />
                 <br />
                 
-                <Comments refreshToken={refreshToken} token={token} account={account} url={url} post_id={post_id} comments={comments} getComments={getComments} editComment={editComment} deleteComment={deleteComment} newComment={newComment} />
+                <Comments refreshToken={refreshToken} token={token} account={account} url={url} post_id={post_id} comments={comments} getComments={getComments} editComment={editComment} deleteComment={deleteComment} newComment={newComment} localToken={localToken} />
             </div>
         </div>
     )

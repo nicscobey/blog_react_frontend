@@ -11,7 +11,7 @@ import Replies from './replies';
 import EditComment from "./editComment";
 import Edit from "@mui/icons-material/Edit";
 
-const Comment = ({comment, account, url, token, deleteComment, editComment, post_id, refreshToken}) => {
+const Comment = ({comment, account, url, token, localToken, deleteComment, editComment, post_id, refreshToken}) => {
     console.log(token)
 
 
@@ -70,28 +70,31 @@ const Comment = ({comment, account, url, token, deleteComment, editComment, post
                     </div>
                 </div>
                 <div className="flex-center">
+                    {token !== "" || localToken ?
+                    <>
                     <div className="comment-button">
                         <IconButton><ThumbUpIcon /></IconButton>{comment.likes}
                     </div>
                     <div className="comment-button">
                         <IconButton><ThumbDownIcon /></IconButton>{comment.dislikes}
                     </div>
-                    <div className="comment-button">
+                     <div className="comment-button">
                         <IconButton onClick={handleShowNewReply}><ChatBubbleIcon /></IconButton>Reply
                     </div>
+                    </> : null}
                     { account && account.id === comment.author.id ?
-                            <>
-                    <div className="comment-button">
-                        <IconButton><EditIcon onClick={openEditComment} /></IconButton>Edit
-                    </div>
-                    <div className="comment-button">
-                        <IconButton><DeleteIcon onClick={handleDelete} /></IconButton>Delete
-                    </div>
-                    </> 
+                        <>
+                            <div className="comment-button">
+                                <IconButton><EditIcon onClick={openEditComment} /></IconButton>Edit
+                            </div>
+                            <div className="comment-button">
+                                <IconButton><DeleteIcon onClick={handleDelete} /></IconButton>Delete
+                            </div>
+                        </> 
                     : null }
                 </div></>
                 }
-                <Replies refreshToken={refreshToken} token={token} handleShowNewReply={handleShowNewReply} setShowNewReply={setShowNewReply} showNewReply={showNewReply} account={account} comment_id={comment.id} url={url} />
+                <Replies localToken={localToken} refreshToken={refreshToken} token={token} handleShowNewReply={handleShowNewReply} setShowNewReply={setShowNewReply} showNewReply={showNewReply} account={account} comment_id={comment.id} url={url} />
             </div>
             <br />
         </>

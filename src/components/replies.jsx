@@ -8,12 +8,12 @@ import { useState, useEffect } from 'react';
 import NewReply from './newReply';
 import Reply from './reply';
 
-const Replies = ({url, comment_id, account, showNewReply, setShowNewReply, handleShowNewReply, token, refreshToken}) => {
+const Replies = ({url, comment_id, account, showNewReply, setShowNewReply, handleShowNewReply, token, localToken, refreshToken}) => {
 
   console.log(token)
 
     // const [showNewReply, setShowNewReply] = useState(false)
-    const localToken = JSON.parse(localStorage.getItem('token'))
+    // const localToken = JSON.parse(localStorage.getItem('token'))
     // console.log(account)
 
     
@@ -117,7 +117,7 @@ useEffect(() => {getReplies()}, [])
 
 
             return (
-                <Reply account={account} handleShowNewReply={handleShowNewReply} reply={reply} editReply={editReply} deleteReply={deleteReply} />
+                <Reply account={account} handleShowNewReply={handleShowNewReply} reply={reply} editReply={editReply} localToken={localToken} token={token} deleteReply={deleteReply} />
                 // <div className="reply" key={`reply-${reply.id}`}>
                     
                 //     <div className="reply-top">

@@ -24,11 +24,13 @@ To access the blog, click [here](https://career-engineer-blog.netlify.app/).
 - Django, Django Rest Framework
 - Heroku
 
+Access the back-end repo [here](https://github.com/nicscobey/blog-backend-django).
+
 ## Challenges
 
 Overall , the project ran quite smoothly, with only a few minor hiccups:
 
-- Issues create the react application, which appeared to have been a result of a bug within <code>create-react-app</code>
+- Issues creating the react application, which appeared to have been a result of a bug within <code>create-react-app</code>
 - As the scope of the project grew, there were some elements that were left out, since the changes would require some rather intricate changes to the back-end models
 
 ## Future Work
